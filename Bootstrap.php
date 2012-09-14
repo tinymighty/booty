@@ -8,7 +8,7 @@
  * @License: GPLv2 (http://www.gnu.org/copyleft/gpl.html)
  */
 
-$wgExtensionFunctions[] = "BootstrapSetup::setHooks";
+
 $wgExtensionCredits['parserhook'][] = array(
 	'name' => 'Bootstrap',
 	'author' => 'Andru Vallance, ',
@@ -18,8 +18,20 @@ $wgExtensionCredits['parserhook'][] = array(
 
 $wgAutoloadClasses['BootstrapExtension'] = dirname(__FILE__) . '/Boostrap.body.php';
 
+$wgExtensionFunctions[] = "BootstrapSetup::tags";
+$wgHooks['OutputPageParserOutput'][] = 'BootstrapSetup::addModules';
+
 class BootstrapSetup{
-	static function hooks(){
+	protected static $modules = array(
+		'bootstrap.css',
+		'bootstrap.js'
+	);
+
+	static function setModules($modules){
+		self::$modules = $modules;
+	}
+
+	static function tags(){
 	    global $wgParser;
 	    for($i=1; $i<=16; $i++)
 		    $wgParser->setHook('span'.$i, array('BootstrapExtension','span'.$i));
@@ -28,6 +40,13 @@ class BootstrapSetup{
 		    $wgParser->setHook('row', array('BootstrapExtension','row'));
 		} 
 	}
+
+	static function addModules(){
+		foreach(self::$modules as $module){
+			$wgOut->addModules( $module );
+		}
+	}
+
 	static function resourceLoader()
 		$resourceTemplate = array(
 			'localBasePath' => dirname( __FILE__ ).'/resources',
@@ -37,55 +56,62 @@ class BootstrapSetup{
 		$wgResourceModules += array(
 			'bootstrap.css' => $resourceTemplate + array(
 		        'styles' => array(
-		        	'bootstrap/bootstrap.css'=>array('media'=>'screen')
+		        	'bootstrap/css/bootstrap.css'=>array('media'=>'screen')
 		        ),
 		        'dependencies' => array( )
 			),
 			'bootstrap.responsive' => $resourceTemplate + array(
 		        'styles' => array(
-		        	'bootstrap/bootstrap-responsive.css'=>array('media'=>'screen')
+		        	'bootstrap/css/bootstrap-responsive.css'=>array('media'=>'screen')
 		        ),
 		        'dependencies' => array( 'bootstrap.css' )
 			),
+			'bootstrap.js' => $resourceTemplate + array(
+			    'dependencies' => array( 'bootstrap.affix','bootstrap.alert','bootstrap.button','bootstrap.carousel',
+										 'bootstrap.collapse','bootstrap.dropdown','bootstrap.modal','bootstrap.popover',
+										 'bootstrap.scrollspy','bootstrap.tab','bootstrap.tooltip','bootstrap.transition',
+										 'bootstrap.typeahead')
+			),
 			'bootstrap.affix' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-affix.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-affix.js' )
 			),
 			'bootstrap.alert' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-alert.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-alert.js' )
 			),
 			'bootstrap.button' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-button.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-button.js' )
 			),
 			'bootstrap.carousel' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-carousel.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-carousel.js' )
 			),
 			'bootstrap.collapse' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-collapse.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-collapse.js' )
 			),
 			'bootstrap.dropdown' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-dropdown.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-dropdown.js' )
 			),
 			'bootstrap.modal' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-modal.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-modal.js' )
 			),
 			'bootstrap.popover' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-popover.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-popover.js' )
 			),
 			'bootstrap.scrollspy' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-scrollspy.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-scrollspy.js' )
 			),
 			'bootstrap.tab' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-tab.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-tab.js' )
 			),
 			'bootstrap.tooltip' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-tooltip.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-tooltip.js' )
 			),
 			'bootstrap.transition' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-transition.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-transition.js' )
 			),
-			'bootstrap.typehead' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/bootstrap-typeahead.js' )
+			'bootstrap.typeahead' => $resourceTemplate + array(
+			    'scripts' => array( 'bootstrap/js/bootstrap-typeahead.js' )
 			)
+
 		);
 	}
 }
