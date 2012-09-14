@@ -22,6 +22,8 @@ $wgExtensionFunctions[] = "BootstrapSetup::tags";
 $wgHooks['OutputPageParserOutput'][] = 'BootstrapSetup::addModules';
 
 class BootstrapSetup{
+	
+	private function __construct(){}
 	protected static $modules = array(
 		'bootstrap.css',
 		'bootstrap.js'
@@ -33,21 +35,23 @@ class BootstrapSetup{
 
 	static function tags(){
 	    global $wgParser;
-	    for($i=1; $i<=16; $i++)
+	    for($i=1; $i<=16; $i++){
 		    $wgParser->setHook('span'.$i, array('BootstrapExtension','span'.$i));
 		    $wgParser->setHook('span-one-third', array('BootstrapExtension','span-one-third'));
 		    $wgParser->setHook('span-two-thirds', array('BootstrapExtension','span-two-thirds'));
 		    $wgParser->setHook('row', array('BootstrapExtension','row'));
 		} 
+		return true;
 	}
 
 	static function addModules($out){
 		foreach(self::$modules as $module){
 			$out->addModules( $module );
 		}
+		return true;
 	}
 
-	static function resourceLoader()
+	static function resourceLoader(){
 		$resourceTemplate = array(
 			'localBasePath' => dirname( __FILE__ ).'/resources',
 			'remoteExtPath' => 'Bootstrap',
