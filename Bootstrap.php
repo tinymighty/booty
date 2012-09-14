@@ -41,9 +41,9 @@ class BootstrapSetup{
 		} 
 	}
 
-	static function addModules(){
+	static function addModules($out){
 		foreach(self::$modules as $module){
-			$wgOut->addModules( $module );
+			$out->addModules( $module );
 		}
 	}
 
