@@ -107,7 +107,8 @@ class BootstrapSetup{
 			    'scripts' => array( 'bootstrap/js/bootstrap-modal.js' )
 			),
 			'bootstrap.popover' => $resourceTemplate + array(
-			    'scripts' => array( 'bootstrap/js/bootstrap-popover.js' )
+			    'scripts' => array( 'bootstrap/js/bootstrap-popover.js' ),
+			    'dependencies' => array( 'bootstrap.tooltip' )
 			),
 			'bootstrap.scrollspy' => $resourceTemplate + array(
 			    'scripts' => array( 'bootstrap/js/bootstrap-scrollspy.js' )
