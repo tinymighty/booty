@@ -19,15 +19,18 @@ $wgExtensionCredits['parserhook'][] = array(
 $wgAutoloadClasses['BootstrapExtension'] = dirname(__FILE__) . '/Boostrap.body.php';
 
 $wgExtensionFunctions[] = "BootstrapSetup::tags";
-$wgHooks['OutputPageParserOutput'][] = 'BootstrapSetup::addModules';
+$wgHooks['BeforePageDisplay'][] = 'BootstrapSetup::addModules';
 
 class BootstrapSetup{
 	
 	private function __construct(){}
 	protected static $modules = array(
-		'bootstrap.css',
-		'bootstrap.js'
+		'bootstrap'
 	);
+	
+	public function init(){
+	    self::registerResources();
+	}
 
 	static function setModules($modules){
 		self::$modules = $modules;
@@ -44,20 +47,26 @@ class BootstrapSetup{
 		return true;
 	}
 
-	static function addModules($out){
+	static function addModules(OutputPage $out){
 		foreach(self::$modules as $module){
 			$out->addModules( $module );
 		}
 		return true;
 	}
 
-	static function resourceLoader(){
+	static function registerResources(){
+	    global $wgResourceModules;
+	    
 		$resourceTemplate = array(
 			'localBasePath' => dirname( __FILE__ ).'/resources',
-			'remoteExtPath' => 'Bootstrap',
+			'remoteExtPath' => 'Bootstrap/resources',
 			'group' => 'boostrap'
 		);
+		
 		$wgResourceModules += array(
+		    'bootstrap' => $resourceTemplate + array(
+		        'dependencies' => array( 'bootstrap.css', 'bootstrap.js' )
+		    ),
 			'bootstrap.css' => $resourceTemplate + array(
 		        'styles' => array(
 		        	'bootstrap/css/bootstrap.css'=>array('media'=>'screen')
@@ -119,3 +128,4 @@ class BootstrapSetup{
 		);
 	}
 }
+BootstrapSetup::init();//run init immediately
