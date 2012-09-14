@@ -27,15 +27,29 @@ class BootstrapSetup{
 	protected static $modules = array(
 		'bootstrap'
 	);
+	protected static $settings = array(
+	    'add_modules' => true
+	);
+	protected static $options = array();
 	
-	public function init(){
+	public function init($options=array()){
+	    
+        self::setOptions($options);
+        
 	    self::registerResources();
+	}
+	
+	static function setOptions($options){
+	    if(isset($options['modules']))
+	        self::setModules($options['modules']);
+	    unset($options['modules']);
+	    self::$options = array_merge(self::$settings,$options);
 	}
 
 	static function setModules($modules){
 		self::$modules = $modules;
 	}
-
+    
 	static function tags(){
 	    global $wgParser;
 	    for($i=1; $i<=16; $i++){
@@ -48,6 +62,9 @@ class BootstrapSetup{
 	}
 
 	static function addModules(OutputPage $out){
+	    if(self::$options['add_modules'] === false)
+	        return true;
+	        
 		foreach(self::$modules as $module){
 			$out->addModules( $module );
 		}
@@ -129,4 +146,3 @@ class BootstrapSetup{
 		);
 	}
 }
-BootstrapSetup::init();//run init immediately
