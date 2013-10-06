@@ -1,6 +1,8 @@
 MediaWiki Bootstrap
 ===================
 
-A MediaWiki extension to integrate Twitter Bootstrap.
+A MediaWiki skin and companion extension to integrate Twitter Bootstrap.
 
-Uses ResourceLoader to load the Bootstrap CSS and JS files. This is not a skin, but can be used alongside a custom skin to work with Bootstrap.
+This is still in development but more or less useable. Right now consider it a skin to use as a base for further development of a custom MediaWiki skin.
+
+Add ```require('skins/Boostrap/Boostrap.setup.php')``` to your config. It won't work without it.
