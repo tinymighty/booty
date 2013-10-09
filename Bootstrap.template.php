@@ -89,7 +89,7 @@ class BootstrapTemplate extends BaseTemplate {
 	}
 
 	protected function leftColumn($opts){
-		$this->sidebar($options);
+		$this->sidebar($opts);
 	}
 
 	protected function rightColumn($opts){
