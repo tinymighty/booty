@@ -5,10 +5,14 @@
  */
 class BootstrapTemplate extends BaseTemplate {
 
-	protected $settings = array(
+	private $settings = array(
 		'layout'=>'fluid',
-		'show-sidebar-logo'=>true
+		'show-sidebar-logo'=>true,
+
+		'contentClass'=>''
 	);
+
+	public $options = array();
 
 
 	/**
@@ -25,19 +29,22 @@ class BootstrapTemplate extends BaseTemplate {
 
 		$this->data['pageLanguage'] = $this->getSkin()->getTitle()->getPageViewLanguage()->getCode();
 
-		$options = $this->settings;
+		$options = array_merge($this->settings, $this->options);
 
 		$this->html( 'headelement' );
 		//$this->navbar();
 		$this->masthead($options);
 		?>
-		<div id="" class="container-fluid">
-			<div class="row-fluid">
-		<?php
-		$this->sidebar($options);
-		$this->content($options);
-		?>
-			</div>
+		<div id="lower-container" class="">
+		<?php $this->leftColumn($options); ?>
+			<div id="content-container">
+				<div class="container-fluid">
+				<?php
+				$this->content($options);
+				?>
+				</div>
+			</div><!--/content-container-->
+		<?php $this->rightColumn($options); ?>
 		</div>
 		<?php
 		$this->footer($this->getFooterIcons( "icononly" ), $this->getFooterLinks( "flat" ));
@@ -81,10 +88,26 @@ class BootstrapTemplate extends BaseTemplate {
 
 	}
 
+	protected function leftColumn($opts){
+		$this->sidebar($options);
+	}
 
-	protected function content(){	?>
+	protected function rightColumn($opts){
 
-<article id="content" class="mw-body-primary span9" role="main">
+	}
+
+	protected function beforeContent($opts){
+
+	}
+	protected function afterContent($opts){
+
+	}
+
+	protected function content($opts){	
+		$this->beforeContent($opts);
+		?>
+
+<article id="content" class="mw-body-primary <?php echo $opts['contentClass']?>" role="main">
 	<?php $this->cactions(); ?>
 	<a id="top"></a>
 	<?php if($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice') ?></div><?php } ?>
@@ -109,31 +132,21 @@ class BootstrapTemplate extends BaseTemplate {
 	</div>
 </article>
 
-<?php }//end content()
+<?php 
+		$this->afterContent($opts);
+	}//end content()
 
 	protected function sidebar($options){ ?>
-<div class="span3">
 <nav id="sidebar"<?php $this->html('userlangattributes')  ?> class="sidebar-nav well">
 
 <?php if($options['show-sidebar-logo']): ?>
 	<div id="sidebar-logo" role="banner"><a href="<?php echo htmlspecialchars( $this->data['nav_urls']['mainpage']['href'] ) ?>" <?php echo Xml::expandAttributes( Linker::tooltipAndAccesskeyAttribs( 'p-logo' ) ) ?>><img src="<?php $this->text( 'logopath' ) ?>"></a></div>
 <?php endif; ?>
 
-	<div class="portlet" id="p-personal" role="navigation">
-		<ul class="nav nav-list">
-		<li class="nav-header"><?php $this->msg('personaltools') ?></li>
-<?php		foreach($this->getPersonalTools() as $key => $item) { ?>
-				<?php echo $this->makeListItem($key, $item); ?>
-
-<?php		} ?>
-		</ul>
-	</div>
-
 <?php
 	$this->renderPortals( $this->data['sidebar'] );
 ?>
 </nav>
-</div><!-- end of sidebar-->
 <?php } //end sidebar() 
 
 
@@ -214,17 +227,15 @@ echo $footerEnd;
 	function searchForm() {
 		global $wgUseTwoButtonsSearchForm;
 ?>
-			<form action="<?php $this->text('wgScript') ?>" id="searchform">
+			<form action="<?php $this->text('wgScript') ?>" id="searchform" method="get">
 				<input type='hidden' name="title" value="<?php $this->text('searchtitle') ?>"/>
 
 				<div class="input-append">
-				  <input class="span8" id="searchInput" size="16" type="text">
-				  <button class="btn searchButton" id="searchGoButton" type="button"><i class="icon icon-search" title="Search"></i> </button>
-				  <?php if ($wgUseTwoButtonsSearchForm): ?>
-				  	<button class="btn searchButton" type="button" id="mw-searchButton"><i class="icon icon-text" title="Search article text"></i> </button>
-					<?php	else: ?>
-						<div><a href="<?php $this->text('searchaction') ?>" rel="search"><?php $this->msg('powersearch-legend') ?></a></div><?php
-						endif; ?>
+				  <input class="" id="searchInput" size="16" type="text" name="search">
+				  <button class="btn searchButton" id="searchGoButton" type="submit"><i class="icon icon-circle-arrow-right" rel="tooltip" title="<?php $this->msg('searcharticle') ?>"></i> </button>
+					<?php if ($wgUseTwoButtonsSearchForm): ?>
+				  	<button class="btn searchButton" type="submit" id="mw-searchButton" name="search" value="fulltext"><i class="icon icon-search" rel="tooltip" title="<?php $this->msg('searchbutton')?>"></i> </button>
+					<?php	endif; ?>
 				</div>
 
 			</form>
@@ -238,7 +249,7 @@ echo $footerEnd;
 	function cactions() {
 ?>
 	<div id="content-actions">
-			<div class="btn-group" data-toggle="buttons-checkbox">
+			<div class="btn-group caction-button" data-toggle="buttons-checkbox">
 	<?php 
 
 	$cactions = $this->data['content_actions'];
@@ -260,10 +271,27 @@ echo $footerEnd;
 		'delete'=> 'remove',
 		'move'=> 'arrow-right',
 		'protect'=> 'lock',
-		'watch'=> 'eye-open'
+		'watch'=> 'eye-open',
+		'viewsource'=> 'align-justify'
 	);
 	?>
-  <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon icon-cog"></i> <?php $this->msg('actions') ?> <b class="caret"></b></a>
+	  </div><!-- end button group-->
+
+  <div class="caction-button dropdown pull-right" >
+  	<button class="btn btn-small" data-toggle="dropdown" title="<?php $this->msg('personaltools') ?>">
+  		<i class="icon icon-user"></i> <b class="caret"></b>
+  	</button>
+		<ul class="dropdown-menu">
+<?php		foreach($this->getPersonalTools() as $key => $item) { ?>
+				<?php echo $this->makeListItem($key, $item); ?>
+<?php		} ?>
+		</ul>
+	</div>
+
+	<div class="caction-button dropdown pull-right">
+  <button class="btn btn-small dropdown-toggle" data-toggle="dropdown" title="<?php $this->msg('actions') ?>">
+  	<i class="icon icon-cog"></i>  <b class="caret"></b>
+  </button>
 
   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
     	<?php
@@ -273,7 +301,9 @@ echo $footerEnd;
 				</a></li>
 			<?php endforeach; ?>
   </ul>
-  </div><!-- end button group-->
+  </div>
+
+
 </div><!--end of content-actions-->
 <?php
 	}

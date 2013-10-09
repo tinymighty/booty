@@ -1,18 +1,52 @@
+/* @override http://wikiausland.dev/w//load.php?debug=true&lang=de&modules=skin.bootstrap.css&only=styles&skin=wikiausland&* */
+
 body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+a.new:not(.btn){
+	font-style: italic;
+	background: rgba(255,0,0,0.1);
+	border-bottom: 1px dashed #c52500;
+}
+a.new:not(.btn):hover{
+	text-decoration: none;
+	border-bottom-style: solid;
+}
+a.btn.new{
+	color: #000;
+	box-shadow:inside 0px 0px 10px rgba(255,0,0,0.3);
+}
+
 #wpTextbox1{
 	display:block;
-	width:auto;
+	width:100%;
 }
 span.editsection{
 	font-size:12px;
 }
-
+#sidebar{
+	width: 170px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#sidebar #searchInput{
+	width: 100px;
+}
+#content-container{
+	margin-left: 200px;
+	position: relative;
+}
+article#content{
+	padding-top: 30px;
+}
 #content-actions{
 	opacity:0.3;
-	float:right;
+	position: absolute;
+	right: 0;
+	top: 0;
 	padding:5px;
 	background:white;
 	border-radius:5px;
@@ -27,9 +61,22 @@ span.editsection{
 #footer{
 	margin: 10px 0 0 0;
 	border-top:1px solid #ddd;
-	padding:10px 20px 0 20px;
+	padding:10px 20px 0 220px;
 }
 
 #footer ul{
 
+}
+
+.caction-button{
+	display:inline-block;
+}
+
+.caction-button.pull-right{
+	float:none;
+}
+
+#searchform .btn{
+	padding-left: 7px;
+	padding-right: 7px;
 }

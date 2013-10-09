@@ -41,6 +41,7 @@ class BootstrapSkin extends SkinTemplate {
 		//$out->addModules( 'bootstrap.css' );
 		//$out->addModules( 'skin.bootstrap' );
 		$out->addModules( 'bootstrap.dropdown');
+		$out->addModules( 'skin.bootstrap.js');
 	}
 
 	/**
@@ -52,8 +53,9 @@ class BootstrapSkin extends SkinTemplate {
 		parent::setupSkinUserCss( $out );
 		//first add the general bootstrap css
 		$out->addModuleStyles( 'bootstrap.css' );
+		$out->addModuleStyles( 'bootstrap.responsive' );
 		//then the css specific to this skin
-		$out->addModuleStyles( 'skin.bootstrap' );
+		$out->addModuleStyles( 'skin.bootstrap.css' );
 
 	}
 

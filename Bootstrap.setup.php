@@ -139,8 +139,15 @@ class BootstrapSetup{
 			    'scripts' => array( 'bootstrap/js/bootstrap-typeahead.js' )
 			),
 
-      'skin.bootstrap' => $resourceTemplate + array(
+      'skin.bootstrap.css' => $resourceTemplate + array(
           'styles'=> array('main.css'),
+      ),
+      'skin.bootstrap.js' => $resourceTemplate + array(
+          'scripts'=> array('init.js'),
+          'position'=> 'bottom',
+          'dependencies'=>array(
+          	'bootstrap.tooltip'
+          )
       )
 
 		);
