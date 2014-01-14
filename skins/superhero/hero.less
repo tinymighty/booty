@@ -1,0 +1,87 @@
+@import (reference) "../../bootstrap-3.0.3/less/variables.less";
+@import (reference) "../../bootstrap-3.0.3/less/mixins.less";
+@import (reference) "../../bootstrap-3.0.3/less/theme.less";
+
+#top-nav{
+	background:transparent;
+	& + .jumbotron{
+		box-shadow:none;
+	}
+}
+#header-logo{
+	display: inline-block;
+}
+.superhero.jumbotron{
+	margin-top:-60px;
+}
+
+.navbar-transparent{
+	background:transparent;
+	border-color:transparent;
+	color:#fff;
+	a{
+		color:#fff;
+	}	
+	.nav > li{
+		background:transparent;
+		&.open{
+			background:transparent;
+		}
+	}
+	.nav > li > a{
+		color:#fff;
+		background:transparent;
+		&:hover, &:active, &:focus{
+			background:transparent;
+		}
+	}
+
+	.nav .dropdown-menu{
+		background:rgba(0,0,0,0.2);
+
+		/* Add the arrow */
+		&::before {
+		    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+		    border-left: 7px solid transparent;
+		    border-right: 7px solid transparent;
+		    content: "";
+		    display: inline-block;
+		    left: 9px;
+		    position: absolute;
+		    top: -7px;
+		}
+
+		&::after {
+		    border-bottom: 6px solid #FFFFFF;
+		    border-left: 6px solid transparent;
+		    border-right: 6px solid transparent;
+		    content: "";
+		    display: inline-block;
+		    left: 10px;
+		    position: absolute;
+		    top: -6px;
+		}
+
+		li:hover{
+			backgrond:transparent;
+		}
+		li > a{
+			color:#fff;
+			&:hover{
+				background:transparent;
+			}
+		}
+	}
+	/* Pull the arrow over to the right if the menu is pulled-right*/
+	.pull-right  .dropdown-menu{
+		&::before {
+	    left: inherit;
+	    right: 24px;
+		}
+
+		&::after {
+		    left: inherit;
+		    right: 25px;
+		}
+	}
+}

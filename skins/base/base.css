@@ -1,0 +1,107 @@
+@import "skins/common/commonContent.css";
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.eot');
+  src: url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.woff') format('woff'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+body {
+  margin-top: 80px;
+}
+#wpTextbox1 {
+  width: 100%;
+}
+/* Styles applicable to all Bootstrap skin layouts */
+#toc,
+.toc {
+  width: auto;
+  display: block;
+}
+.site-notice {
+  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+  background-image: linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
+  border-color: #9acfea;
+}
+#top-nav {
+  position: absolute;
+}
+nav#related .portlet {
+  display: block;
+  padding: 10px;
+}
+nav#related .portlet li > a {
+  padding: 0;
+}
+@media (min-width: 480px) {
+  body {
+    margin-top: 50px;
+  }
+  nav#related .portlet {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  nav#related .portlet:last-child {
+    border-right: none;
+  }
+  #top-nav {
+    position: fixed;
+  }
+  #top-menu {
+    float: right !important;
+  }
+  #top-menu .title {
+    display: none;
+  }
+  #top-search {
+    margin-top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (min-width: 992px) {
+  #content-container {
+    position: relative;
+    /* Show the TOC as a sidebar on the left */
+  }
+  #content-container.has-toc #toc {
+    display: block;
+    position: absolute;
+    top: 1em;
+    left: 0;
+    width: 200px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    /* Hide the title when we're displaying as a sidebar */
+  }
+  #content-container.has-toc #toc #toctitle {
+    display: none;
+  }
+  #content-container.has-toc #content {
+    margin-left: 200px;
+  }
+}
+@media (min-width: 1200px) {
+  #content-container {
+    /* Styles for showing a related links sidebar on the right */
+  }
+  #content-container.has-related nav#related {
+    position: absolute;
+    top: 1em;
+    right: 0;
+    width: 150px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+  }
+  #content-container.has-related nav#related .portlet {
+    display: block;
+    width: auto;
+    border-right: none;
+  }
+  #content-container.has-related #content {
+    margin-right: 150px;
+  }
+}

@@ -1,0 +1,166 @@
+@import (reference) "../../bootstrap-3.0.3/less/variables.less";
+@import (reference) "../../bootstrap-3.0.3/less/mixins.less";
+@import (reference) "../../bootstrap-3.0.3/less/theme.less";
+@import (reference) "../../bootstrap-3.0.3/less/utilities.less";
+@import (reference) "../../bootstrap-3.0.3/less/forms.less";
+@import (reference) "../../bootstrap-3.0.3/less/navbar.less";
+@import "skins/common/commonContent.css";
+@base-url: "skins/bootstrap/bootstrap-3.0.3";
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot');
+  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('@{base-url}/fonts/glyphicons-halflings-regular.woff') format('woff'), url('@{base-url}/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('@{base-url}/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+body{
+	margin-top:80px;
+}
+#wpTextbox1{
+	width:100%;
+}
+/* Styles applicable to all Bootstrap skin layouts */
+#toc, .toc{
+	width:auto;
+	display:block;
+}
+.site-notice{
+	.alert-info;
+}
+
+#top-nav{
+	position:absolute;
+}
+#top-name{
+	
+}
+#top-menu .title{
+
+}
+
+#top-search{
+
+}
+
+
+nav#related{
+	.portlet{
+		display:block;
+		padding:10px;
+
+		li > a{
+			padding:0;
+		}
+	}
+}
+
+@media (min-width: @screen-xs-min) {
+	body{
+		margin-top:50px;
+	}
+
+	nav#related{
+		.portlet{
+			width:49%;
+
+			display:inline-block;
+			vertical-align:top;
+
+			border-right:1px solid rgba(0,0,0,0.25);
+
+			&:last-child{
+				border-right:none;
+			}
+		}
+	}
+
+	#top-nav{
+		position:fixed;
+	}
+	#top-menu{
+		.pull-right;
+	}
+	#top-menu .title{
+		display:none;
+	}
+	#top-search{
+		margin-top:0;
+		.center-block;
+	}
+}
+
+
+@media (min-width: @screen-md-min) {
+  #top-name{
+
+	}
+
+	#content-container{
+		position: relative;
+
+
+		/* Show the TOC as a sidebar on the left */
+		&.has-toc{
+			#toc{
+				display:block;
+
+				position:absolute;
+				top:1em;
+				left:0;
+				width: 200px;
+
+				background:rgba(0,0,0,0.05);
+
+				border-radius: 5px;
+				
+				/* Hide the title when we're displaying as a sidebar */
+				#toctitle{
+					display:none;
+				}
+				
+			}
+
+
+			#content{
+				margin-left:200px;
+			}
+		}
+
+	}
+	
+
+
+
+}
+
+@media (min-width: @screen-lg-min) {
+	#content-container{
+		/* Styles for showing a related links sidebar on the right */
+		&.has-related{
+			nav#related{
+
+				position:absolute;
+				top:1em;
+				right:0;
+				width: 150px;
+
+				background:rgba(0,0,0,0.05);
+
+				border-radius: 5px;
+
+				.portlet{
+					display:block;
+					width:auto;
+
+					border-right:none;
+				}
+			}
+
+			#content{
+				margin-right:150px;
+			}
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+  
+}

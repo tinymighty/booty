@@ -38,5 +38,13 @@ class BootstrapExtension {
 		return '<div class="hero-unit '.$opts['class'].'" id="'.$opts['id'].'">'.$content.'</div>';
 	}
 
+
+	public static function setSkin($parser, $skin){
+		/* @todo: in order to work with parsercache this needs to cache the value in wikitext and retreive it
+		before the skin is initialized */
+		Bootstrap::$pageSkin = $skin;
+		return true;
+	}
+
 }
 
