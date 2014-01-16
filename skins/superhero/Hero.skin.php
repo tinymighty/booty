@@ -24,6 +24,8 @@ class SkinBootstrapHero extends SkinBootstrapBase {
 
 		parent::initPage( $out );
 
+		$out->addModules( 'skin.bootstrap.hero' );
+		//ensure css is loaded at page top
 		$out->addModuleStyles( 'skin.bootstrap.hero' );
 	}
 

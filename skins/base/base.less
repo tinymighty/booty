@@ -26,61 +26,35 @@ body{
 	.alert-info;
 }
 
+
+
+
+
+body{
+	margin-top:50px;
+}
+
 #top-nav{
-	position:absolute;
-}
-#top-name{
-	
-}
-#top-menu .title{
-
+	position:fixed;
 }
 
-#top-search{
+.navbar{
 
-}
+	.title{
+		display:inline;
+	}
 
+	@media (min-width: @screen-sm-min) {
 
-nav#related{
-	.portlet{
-		display:block;
-		padding:10px;
-
-		li > a{
-			padding:0;
+		.nav .title{
+			display:none;
 		}
 	}
 }
 
-@media (min-width: @screen-xs-min) {
-	body{
-		margin-top:50px;
-	}
 
-	nav#related{
-		.portlet{
-			width:49%;
+@media (min-width: @screen-sm-min) {
 
-			display:inline-block;
-			vertical-align:top;
-
-			border-right:1px solid rgba(0,0,0,0.25);
-
-			&:last-child{
-				border-right:none;
-			}
-		}
-	}
-
-	#top-nav{
-		position:fixed;
-	}
-	#top-menu{
-		.pull-right;
-	}
-	#top-menu .title{
-		display:none;
-	}
 	#top-search{
 		margin-top:0;
 		.center-block;
@@ -88,14 +62,12 @@ nav#related{
 }
 
 
-@media (min-width: @screen-md-min) {
-  #top-name{
 
-	}
 
-	#content-container{
+#content-container{
+	@media (min-width: @screen-md-min) {
+
 		position: relative;
-
 
 		/* Show the TOC as a sidebar on the left */
 		&.has-toc{
@@ -125,14 +97,8 @@ nav#related{
 		}
 
 	}
-	
 
-
-
-}
-
-@media (min-width: @screen-lg-min) {
-	#content-container{
+	@media (min-width: @screen-lg-min) {
 		/* Styles for showing a related links sidebar on the right */
 		&.has-related{
 			nav#related{
@@ -159,8 +125,35 @@ nav#related{
 			}
 		}
 	}
+
 }
 
-@media (min-width: 1200px) {
-  
+
+nav#related{
+	.portlet{
+		display:block;
+		padding:10px;
+
+		li > a{
+			padding:0;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+
+		nav#related{
+			.portlet{
+				width:49%;
+
+				display:inline-block;
+				vertical-align:top;
+
+				border-right:1px solid rgba(0,0,0,0.25);
+
+				&:last-child{
+					border-right:none;
+				}
+			}
+		}
+	}
 }

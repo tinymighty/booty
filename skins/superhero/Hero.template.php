@@ -13,21 +13,27 @@ $wgResourceModules['skins.basabali'] = array(
 
 class BootstrapHeroTemplate extends BootstrapBaseTemplate {
 
+	public $_hero_settings = array(
+		'show title'=>false
+	);
+
 	public function __construct(){
+		//merge in the default settings
+		$this->settings = array_merge($this->settings, $this->_hero_settings);
 		parent::__construct();
 		$this->addTemplatePath( dirname(__FILE__).'/templates' );
 	}
 	protected function initialize(){
 		//add it before the parent initialize, so it appears before the standard hero
-		$this->add('before:lower-container', array('superhero', $this));
-
+		$this->addHook('before:lower-container', 'superhero');
+		$this->addHTML('navbar.class', 'transparent superhero');
 		parent::initialize();
 	}
 
 	protected function superhero(){
 		$content = '';
 		//Skinny can be used to content from the article into the 
-		if( class_exists(Skinny) && Skinny::hasContent('superhero') ){
+		if( class_exists('Skinny') && Skinny::hasContent('superhero') ){
 			$content = Skinny::getContent('superhero');
 			return $this->renderTemplate('superhero', array(
 				'content'=> $content

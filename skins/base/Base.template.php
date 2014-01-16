@@ -18,6 +18,8 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		'enable secondary search'=>false,
 
 		'enable fancy toc'=>true,
+
+		'show title'=>true
 	);
 
 	public $options = array();
@@ -61,8 +63,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 				'code'=>$active->getCode() 
 			);
 		}
-
-		$this->initialize();
 	}
 
 	protected function addTemplatePath($path){
@@ -71,53 +71,51 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected function initialize(){
 		//site notice
-		$this->add('notice', array('notice', $this));
+		$this->addHook('notice', 'notice');
 		//head element (including opening body tag)
-		$this->add('head', array('headElement', $this));
+		$this->addHTML('head', $this->data[ 'headelement' ]);
 		if($this->options['enable navbar']){
 			//add a top navigation bar
-			$this->add('prepend:body', array('primaryNavigation', $this));
+			$this->addTemplate('prepend:body', 'topnav');
 		}
 
-		$this->add('primary nav menus', array('languageMenu', $this));
-		$this->add('primary nav menus', array('contentActionsMenu', $this));
-		$this->add('primary nav menus', array('userMenu', $this));
+		$this->addHook('primary nav menus', 'languageMenu');
+		$this->addHook('primary nav menus', 'contentActionsMenu');
+		$this->addHook('primary nav menus', 'userMenu');
 
 		//allow for a full-width hero unit above the content
-		$this->add('before:lower-container', array('hero', $this));
+		$this->addHook('before:lower-container', 'hero');
 
 		//add the usual mediawiki sidebar as a righthand sidebar
 		if($this->options['enable related navigation']){
-			$this->add('content-container-class', 'has-related');
-			$this->add('append:content-container', array('relatedNav', $this));
+			$this->addHTML('content-container.class', 'has-related');
+			$this->addHook('append:content-container', 'relatedNav');
 		}
 
 		if($this->options['enable fancy toc']){
-			$this->add('content-container-class', 'has-toc');
+			$this->addHTML('content-container.class', 'has-toc');
 		}
 
 		//the article title 
-		$this->add('title', array('title', $this));
-		//article content
-		$this->add('content', array('content', $this));
-		//page footer
-		$this->add('footer', array('footer', $this));
-		//mediawiki needs this to inject script tags after the footer
-		$this->add('after:footer', array('afterFooter', $this));
-	}
-
-
-
-	protected function siteNotice(){
-		return $this->renderTemplate('sitenotice');
-	}
-
-
-	protected function title(){
-		return $this->renderTemplate('article-title', array(
+		if($this->options['show title']){
+			$this->addTemplate('title', 'title', array(
 				'title'=>$this->data['title']
-			)
-		);
+			));
+		}
+
+		$this->addTemplate('brand', 'topnav-brand');
+		$this->addHTML('logo', $this->data['logopath']);
+
+		//article content
+		$this->addHook('content', 'content');
+		//page footer
+		$this->addTemplate('footer', 'footer', array(
+			'icons'=>$this->getFooterIcons( "icononly" ), 
+			'links'=>$this->getFooterLinks( "flat" )
+		));
+		//mediawiki needs this to inject script tags after the footer
+		$this->addHook('after:footer', 'afterFooter');
+
 	}
 
 	protected function tagline(){
@@ -129,7 +127,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected function content(){
 		return $this->renderTemplate('content', array(
-				'content_html'=>$this->data['bodytext']
+				'content_html'=>$this->parseContent($this->data['bodytext'])
 			)
 		);
 	}
@@ -137,7 +135,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 	protected function hero(){
 		$content = '';
 		//Skinny can be used to content from the article into the 
-		if( class_exists(Skinny) && Skinny::hasContent('hero') ){
+		if( class_exists('Skinny') && Skinny::hasContent('hero') ){
 			$content = Skinny::getContent('hero');
 			return $this->renderTemplate('hero');
 		}
@@ -152,10 +150,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		}
 	}
 
-	protected function primaryNavigation(){
-		return $this->renderTemplate('primary-navigation');
-	}
-
 	protected function relatedNav(){
 		$sections = $this->data['sidebar'];
 		if(!$this->options['enable secondary search']){
@@ -168,13 +162,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		);
 	}
 
-	protected function footer(){ 
-		return $this->renderTemplate('footer', array(
-			'icons'=>$this->getFooterIcons( "icononly" ), 
-			'links'=>$this->getFooterLinks( "flat" )
-			)
-		);
-	} 
 
 	protected function afterFooter(){
 		ob_start();

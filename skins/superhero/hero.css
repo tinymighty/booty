@@ -1,77 +1,124 @@
-#top-nav {
-  background: transparent;
-}
-#top-nav + .jumbotron {
-  box-shadow: none;
-}
 #header-logo {
   display: inline-block;
 }
-.superhero.jumbotron {
-  margin-top: -60px;
+@media (min-width: 768px) {
+  .superhero.jumbotron {
+    margin-top: -60px;
+  }
 }
-.navbar-transparent {
-  background: transparent;
-  border-color: transparent;
-  color: #fff;
-  /* Pull the arrow over to the right if the menu is pulled-right*/
+.navbar .dropdown-menu {
+  background: #000000;
 }
-.navbar-transparent a {
-  color: #fff;
+.navbar .dropdown-menu > li > a {
+  color: #ffffff;
+  background-color: #000000;
 }
-.navbar-transparent .nav > li {
-  background: transparent;
+.navbar .dropdown-menu > li > a:hover,
+.navbar .dropdown-menu > li > a:active,
+.navbar .dropdown-menu > li > a:focus {
+  color: #ffffff;
+  background-color: #888888;
 }
-.navbar-transparent .nav > li.open {
-  background: transparent;
+@media (min-width: 768px) {
+  .navbar.transparent {
+    background: transparent;
+    border-color: transparent;
+    color: #ffffff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    /* Pull the arrow over to the right if the menu is pulled-right*/
+  }
+  .navbar.transparent a {
+    color: #ffffff;
+  }
+  .navbar.transparent .nav > li {
+    background: transparent;
+  }
+  .navbar.transparent .nav > li.open,
+  .navbar.transparent .nav > li.open > a,
+  .navbar.transparent .nav > li.open > a:active,
+  .navbar.transparent .nav > li.open > a:focus,
+  .navbar.transparent .nav > li.open > a:hover {
+    background: transparent;
+  }
+  .navbar.transparent .nav > li > a {
+    color: #ffffff;
+    background: transparent;
+  }
+  .navbar.transparent .nav > li > a:hover,
+  .navbar.transparent .nav > li > a:active,
+  .navbar.transparent .nav > li > a:focus {
+    background: transparent;
+  }
+  .navbar.transparent .dropdown-menu {
+    background: #000000;
+  }
+  .navbar.transparent .dropdown-menu > li > a {
+    color: #ffffff;
+    background-color: #000000;
+  }
+  .navbar.transparent .dropdown-menu > li > a:hover,
+  .navbar.transparent .dropdown-menu > li > a:active,
+  .navbar.transparent .dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: #888888;
+  }
+  .navbar.transparent .dropdown-menu {
+    border-radius: 5px;
+  }
+  .navbar.transparent .dropdown-menu::before {
+    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 9px;
+    position: absolute;
+    top: -7px;
+  }
+  .navbar.transparent .dropdown-menu::after {
+    border-bottom: 6px solid #000000;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 10px;
+    position: absolute;
+    top: -6px;
+  }
+  .navbar.transparent .navbar-right .dropdown-menu::before {
+    left: inherit;
+    right: 24px;
+  }
+  .navbar.transparent .navbar-right .dropdown-menu::after {
+    left: inherit;
+    right: 25px;
+  }
+  .navbar.transparent + .jumbotron {
+    box-shadow: none;
+  }
 }
-.navbar-transparent .nav > li > a {
-  color: #fff;
-  background: transparent;
+.navbar.superhero #top-search {
+  display: none;
 }
-.navbar-transparent .nav > li > a:hover,
-.navbar-transparent .nav > li > a:active,
-.navbar-transparent .nav > li > a:focus {
-  background: transparent;
+.navbar.superhero .container {
+  width: auto;
 }
-.navbar-transparent .nav .dropdown-menu {
-  background: rgba(0, 0, 0, 0.2);
-  /* Add the arrow */
-}
-.navbar-transparent .nav .dropdown-menu::before {
-  border-bottom: 7px solid rgba(0, 0, 0, 0.2);
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  content: "";
-  display: inline-block;
-  left: 9px;
-  position: absolute;
-  top: -7px;
-}
-.navbar-transparent .nav .dropdown-menu::after {
-  border-bottom: 6px solid #FFFFFF;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  content: "";
-  display: inline-block;
-  left: 10px;
-  position: absolute;
-  top: -6px;
-}
-.navbar-transparent .nav .dropdown-menu li:hover {
-  backgrond: transparent;
-}
-.navbar-transparent .nav .dropdown-menu li > a {
-  color: #fff;
-}
-.navbar-transparent .nav .dropdown-menu li > a:hover {
-  background: transparent;
-}
-.navbar-transparent .pull-right .dropdown-menu::before {
-  left: inherit;
-  right: 24px;
-}
-.navbar-transparent .pull-right .dropdown-menu::after {
-  left: inherit;
-  right: 25px;
-}
+/*.navbar.superhero{
+  .navbar-nav{
+    float: left;
+    margin: 0;
+
+    > li {
+      float: left;
+      > a {
+        padding-top:    @navbar-padding-vertical;
+        padding-bottom: @navbar-padding-vertical;
+      }
+    }
+
+    &.navbar-right:last-child {
+      margin-right: -@navbar-padding-horizontal;
+    }
+  }
+}*/

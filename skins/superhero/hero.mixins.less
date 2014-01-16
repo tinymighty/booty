@@ -1,0 +1,90 @@
+.transparent-navbar(@text-color; @bg-color:transparent) {
+	background:@bg-color;
+	border-color:@bg-color;
+	color:@text-color;
+
+	.box-shadow(none);
+
+	a{
+		color:@text-color;
+	}	
+	.nav > li{
+		background:@bg-color;
+		&.open,
+		&.open > a,
+		&.open > a:active,
+		&.open > a:focus,
+		&.open > a:hover{
+			background:@bg-color;
+		}
+	}
+	.nav > li > a{
+		color:@text-color;
+		background:@bg-color;
+		&:hover, &:active, &:focus{
+			background:@bg-color;
+		}
+	}
+}
+
+
+.dropdown-menu(@text-color:#fff; @bg-color:#000; @hover-color:#888; @hover-text-color:#fff ){
+	.dropdown-menu{
+		background:@bg-color;
+
+		& > li{
+			& > a{
+					color:@text-color;
+					background-color:@bg-color;
+			}
+			& > a:hover, 
+			& > a:active, 
+			& > a:focus{
+				color:@hover-text-color;
+					background-color:@hover-color;
+			}
+		}
+	}
+}
+
+
+.add-dropdown-arrows(@color:#000){
+	.dropdown-menu{
+		border-radius: 5px;
+
+		&::before {
+		    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+		    border-left: 7px solid transparent;
+		    border-right: 7px solid transparent;
+		    content: "";
+		    display: inline-block;
+		    left: 9px;
+		    position: absolute;
+		    top: -7px;
+		}
+
+		&::after {
+		    border-bottom: 6px solid @color;
+		    border-left: 6px solid transparent;
+		    border-right: 6px solid transparent;
+		    content: "";
+		    display: inline-block;
+		    left: 10px;
+		    position: absolute;
+		    top: -6px;
+		}
+	}
+
+	/* Pull the arrow over to the right if the menu is pulled-right*/
+	.navbar-right  .dropdown-menu{
+		&::before {
+	    left: inherit;
+	    right: 24px;
+		}
+
+		&::after {
+		   left: inherit;
+		   right: 25px;
+		}
+	}
+}

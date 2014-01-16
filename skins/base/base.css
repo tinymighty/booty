@@ -23,38 +23,21 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
   border-color: #9acfea;
 }
+body {
+  margin-top: 50px;
+}
 #top-nav {
-  position: absolute;
+  position: fixed;
 }
-nav#related .portlet {
-  display: block;
-  padding: 10px;
+.navbar .title {
+  display: inline;
 }
-nav#related .portlet li > a {
-  padding: 0;
-}
-@media (min-width: 480px) {
-  body {
-    margin-top: 50px;
-  }
-  nav#related .portlet {
-    width: 49%;
-    display: inline-block;
-    vertical-align: top;
-    border-right: 1px solid rgba(0, 0, 0, 0.25);
-  }
-  nav#related .portlet:last-child {
-    border-right: none;
-  }
-  #top-nav {
-    position: fixed;
-  }
-  #top-menu {
-    float: right !important;
-  }
-  #top-menu .title {
+@media (min-width: 768px) {
+  .navbar .nav .title {
     display: none;
   }
+}
+@media (min-width: 768px) {
   #top-search {
     margin-top: 0;
     display: block;
@@ -103,5 +86,23 @@ nav#related .portlet li > a {
   }
   #content-container.has-related #content {
     margin-right: 150px;
+  }
+}
+nav#related .portlet {
+  display: block;
+  padding: 10px;
+}
+nav#related .portlet li > a {
+  padding: 0;
+}
+@media (min-width: 768px) {
+  nav#related nav#related .portlet {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  nav#related nav#related .portlet:last-child {
+    border-right: none;
   }
 }

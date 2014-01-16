@@ -11,7 +11,7 @@
 <?php }
 
 		if ( count( $links ) > 0 ):
-?>	<ul id="f-list" class="unstyled">
+?>	<ul id="links">
 <?php
 			foreach( $links as $aLink ) { ?>
 		<li id="<?php echo $aLink ?>"><?php $this->html($aLink) ?></li>

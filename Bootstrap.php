@@ -114,7 +114,8 @@ class Bootstrap{
 
 			//resources for the Hero theme
 			'skin.bootstrap.hero' => $resourceTemplate + array(
-				'styles'=> array('skins/superhero/hero.css')
+				'styles'=> array('skins/superhero/hero.css'),
+				'scripts'=> array('skins/superhero/init.js')
 			),
 
 		);
