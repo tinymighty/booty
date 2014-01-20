@@ -1,10 +1,12 @@
-<footer id="footer" role="contentinfo"<?php $this->html('userlangattributes') ?>>
+<footer id="main-footer" role="contentinfo"<?php $this->html('userlangattributes') ?>>
 <div class="container">
+	<div class="mediawiki-info">
+
+	</div>
 <?php	foreach ( $icons as $blockName => $footerIcons ) { ?>
 	<div id="f-<?php echo htmlspecialchars($blockName); ?>ico">
 <?php foreach ( $footerIcons as $icon ) { ?>
 		<?php echo $this->getSkin()->makeFooterIcon( $icon ); ?>
-
 <?php }
 ?>
 	</div>

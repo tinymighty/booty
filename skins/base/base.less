@@ -11,9 +11,25 @@
   src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot');
   src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('@{base-url}/fonts/glyphicons-halflings-regular.woff') format('woff'), url('@{base-url}/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('@{base-url}/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
-body{
-	margin-top:80px;
+
+@inverse-text-color: #fff;
+@accent-color: #000;
+
+html{
+	min-height:100%;
+	position:relative;
 }
+body{
+	margin-top:60px;
+	min-height:100%;
+	margin-bottom:200px;
+}
+#main-footer{
+	position:absolute;
+	bottom:0;
+	width:100%;
+}
+
 #wpTextbox1{
 	width:100%;
 }
@@ -27,15 +43,10 @@ body{
 }
 
 
-
-
-
-body{
-	margin-top:50px;
-}
-
 #top-nav{
 	position:fixed;
+
+
 }
 
 .navbar{
@@ -53,13 +64,70 @@ body{
 }
 
 
-@media (min-width: @screen-sm-min) {
 
-	#top-search{
-		margin-top:0;
-		.center-block;
+
+.navbar-search{
+	display:none;
+	.navbar > &,
+	.navbar > .container > &{
+		@media (min-width: @screen-sm-min) {
+			display: table-cell;
+		}
+	}
+	.navbar-header > &{
+		width:auto;
+		float:left;
+		.navbar-form{
+			margin:0;
+		}
+		@media (min-width: @screen-sm-min) {
+			display: none;
+		}
+	}
+
+
+}
+@media (max-width: @screen-sm-min) {
+	.navbar-header{
+		display:table;
+		width:100%;
+		margin:0;
+		padding:0;
+		.container > &{
+			padding:0;
+			margin:0;
+		}
+		.navbar-brand,
+		.navbar-search,
+		.navbar-menu-toggle{
+			display:table-cell;
+			border:1px solid red;
+			float:none;
+			vertical-align: top;
+		}
 	}
 }
+@media (min-width: @screen-sm-min) {
+
+	#top-nav .container{
+		display:table;
+	}
+	.navbar-search{
+		position:static;
+		max-width:300px;
+	}
+	.navbar-search, .navbar-header, #top-menu{
+		display: table-cell;
+		vertical-align: top;
+	}
+	#top-menu{
+		.navbar-nav{
+			> li{
+			} 
+		}
+	}
+}
+
 
 
 
@@ -156,4 +224,12 @@ nav#related{
 			}
 		}
 	}
+}
+
+#wpSave{
+	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
+}
+
+.multipleTemplateAdder{
+	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
 }

@@ -83,6 +83,8 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		$this->addHook('primary nav menus', 'contentActionsMenu');
 		$this->addHook('primary nav menus', 'userMenu');
 
+		$this->addHook('inline search', 'inlineSearchElements');
+
 		//allow for a full-width hero unit above the content
 		$this->addHook('before:lower-container', 'hero');
 
@@ -105,6 +107,8 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 		$this->addTemplate('brand', 'topnav-brand');
 		$this->addHTML('logo', $this->data['logopath']);
+
+		$this->addTemplate('language variants', 'language-variants', array('variants'=>$this->data['language_urls']));
 
 		//article content
 		$this->addHook('content', 'content');
@@ -162,6 +166,9 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		);
 	}
 
+	protected function footerLinks(){
+	  $links = $this->getFooterLinks();
+	}
 
 	protected function afterFooter(){
 		ob_start();
@@ -171,8 +178,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	function inlineSearchElements(){
 		global $wgUseTwoButtonsSearchForm;
-		return $this->renderTemplate('inline-search-elements', array(
-			'two_button_search' => $wgUseTwoButtonsSearchForm,
+		return $this->renderTemplate('inline-search', array(
 			'label'=>wfMsg('search'),
 			'search_button_label' => wfMsg('searcharticle'),
 			'fulltext_button_label'	=> wfMsg('searchbutton')
@@ -221,35 +227,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 
 
-		
-
 	/*************************************************************************************************/
-
-	/**
-	 * @param $sidebar array
-	 */
-	protected function renderPortals( $sidebar ) {
-		if ( !isset( $sidebar['SEARCH'] ) ) $sidebar['SEARCH'] = true;
-		if ( !isset( $sidebar['TOOLBOX'] ) ) $sidebar['TOOLBOX'] = true;
-		if ( !isset( $sidebar['LANGUAGES'] ) ) $sidebar['LANGUAGES'] = true;
-
-		foreach( $sidebar as $boxName => $content ) {
-			if ( $content === false )
-				continue;
-
-			if ( $boxName == 'SEARCH' ) {
-				$this->searchBox();
-			} elseif ( $boxName == 'TOOLBOX' ) {
-				$this->toolbox();
-			} elseif ( $boxName == 'LANGUAGES' ) {
-				$this->languageBox();
-			} else {
-				$this->customBox( $boxName, $content );
-			}
-		}
-	}
-
-
 
 	/* A hacky way to move to Universal Language Selector out of the personal_urls
 	as soon as it's added... */
@@ -287,23 +265,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		</ul>
 	</div>
 <?php
-	}
-
-	/*************************************************************************************************/
-	function languageBox() {
-		if( $this->data['language_urls'] ) {
-?>
-	<div id="p-lang" class="portlet" role="navigation">
-		<ul class="nav nav-list">
-		<li class="nav-header"><?php $this->html('userlangattributes') ?>><?php $this->msg('otherlanguages') ?></li>
-<?php		foreach($this->data['language_urls'] as $key => $langlink) { ?>
-				<?php echo $this->makeListItem($key, $langlink); ?>
-
-<?php		} ?>
-		</ul>
-	</div>
-<?php
-		}
 	}
 
 	/*************************************************************************************************/

@@ -6,6 +6,9 @@
     margin-top: -60px;
   }
 }
+#top-nav .container {
+  width: 100%;
+}
 .navbar .dropdown-menu {
   background: #000000;
 }
@@ -97,9 +100,6 @@
   .navbar.transparent + .jumbotron {
     box-shadow: none;
   }
-}
-.navbar.superhero #top-search {
-  display: none;
 }
 .navbar.superhero .container {
   width: auto;

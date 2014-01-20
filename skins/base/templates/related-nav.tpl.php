@@ -1,16 +1,12 @@
 		<nav id="related">
-		<?php
-		foreach( $sections as $boxName => $content ) {
-			if ( $content === false )
-				continue;
+		<?php 
 
-			if ( $boxName == 'TOOLBOX' ) {
-				$this->toolbox();
-			} elseif ( $boxName == 'LANGUAGES' ) {
-				$this->languageBox();
-			} else {
-				$this->customBox( $boxName, $content );
-			}
-		}
+		$this->insert('language variants');
+		$this->insert('toolbox');
+
+		wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
+
+		$this->insert('custom navigation');
+
 		?>
 		</nav>
