@@ -1,0 +1,256 @@
+@import "skins/common/commonContent.css";
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.eot');
+  src: url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.woff') format('woff'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('skins/bootstrap/bootstrap-3.0.3/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+/* Override default styles for VisualEditor. body.skin-bootstrap gives higher specificity than the
+VisualEditor selectors, which will be appended to the page *after* this file */
+body.skin-bootstrap {
+  /* By default make toolbar always static, we'll override it for larger displays */
+  /* Ensure the modal is stacked ontop of everything else! */
+}
+body.skin-bootstrap .ve-ui-surfaceToolbar-floating .ve-ui-toolbar-bar,
+body.skin-bootstrap .ve-ui-toolbar-bar {
+  position: static;
+  overflow: visible !important;
+}
+body.skin-bootstrap .ve-ui-toolbar-bar {
+  background-image: none;
+}
+body.skin-bootstrap .ve-ui-barToolGroup .ve-ui-tool {
+  height: 1.8em;
+  padding: 0.1em;
+}
+body.skin-bootstrap .ve-ui-dialog {
+  z-index: 99999999;
+}
+/* Give the various iframes VisualEditor embeds a white background */
+.ve-ui-frame-body {
+  background: white;
+}
+body .ve-ui-inspector-content .ve-ui-window-body form {
+  /* Hack for a strange bug in VisualEditor forms which causes inputs to fly off out of view on the edit link popup */
+  whitespace: inherit !important;
+}
+@media (min-width: 768px) {
+  body {
+    margin-top: 60px;
+    /* Extra padding when VisualEditor toolbar is displayed fixed */
+    /* VisualEditor should be a fixed position toolbar on higher resolutions */
+  }
+  body.veaction-edit {
+    padding-top: 110px;
+  }
+  body .bootstrap-ve .ve-ui-surfaceToolbar-floating .ve-ui-toolbar-bar,
+  body .bootstrap-ve .ve-ui-toolbar-bar {
+    position: fixed;
+    z-index: 1;
+    overflow: visible;
+    top: 50px;
+    left: 0;
+    right: 0;
+  }
+}
+#page {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  min-height: 100vh;
+}
+#page #lower-container {
+  flex: 1;
+}
+#wpTextbox1 {
+  width: 100%;
+}
+/* Reset the TOC */
+#toc,
+.toc {
+  width: auto;
+  display: block;
+  border: none;
+}
+#toc #toctitle,
+.toc #toctitle {
+  text-align: left;
+}
+#toc .tocnumber,
+.toc .tocnumber {
+  display: none;
+}
+.site-notice {
+  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+  background-image: linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
+  border-color: #9acfea;
+}
+#top-nav {
+  background-image: -webkit-linear-gradient(top, #d1d1d1 0%, #c7c7c7 100%);
+  background-image: linear-gradient(to bottom, #d1d1d1 0%, #c7c7c7 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd1d1d1', endColorstr='#ffc7c7c7', GradientType=0);
+  color: #000000;
+  position: static;
+}
+#top-nav .container {
+  position: relative;
+}
+@media (max-width: 768px) {
+  #top-nav .navbar-menu-toggle {
+    position: absolute;
+    left: 10px;
+    top: 0;
+  }
+  #top-nav .navbar-brand {
+    display: block;
+    float: none;
+    text-align: center;
+    margin: 0 auto;
+  }
+  #top-nav .navbar-search {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+#top-nav .navbar-menu .title {
+  display: inline;
+}
+@media (min-width: 768px) {
+  #top-nav {
+    position: fixed;
+  }
+  #top-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #top-nav .navbar-search {
+    flex: 1;
+  }
+  #top-nav .navbar-search form {
+    margin: 0 10%;
+  }
+  #top-nav .navbar-menu {
+    display: block;
+    /* Hide titles when displaying inline */
+    /* Undo the collapsing which happens at screen-sm-min by default */
+  }
+  #top-nav .navbar-menu .nav .title {
+    display: none;
+  }
+  #top-nav .navbar-menu .navbar-nav > li {
+    float: left;
+  }
+  #top-nav .navbar-toggle {
+    display: none;
+  }
+}
+/* /#top-nav */
+#content-container {
+  display: flex;
+  flex-direction: column;
+}
+#content-container #content {
+  flex: 1;
+  order: 2;
+  /* The standard inline TOC is visible on mobile devices */
+}
+#content-container #content .toc {
+  display: block;
+}
+#content-container #shared-sidebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  /* The sidebar TOC is hidden on mobile devices */
+}
+#content-container #shared-sidebar .toc {
+  display: none;
+}
+#content-container nav#related {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  order: 3;
+  margin: 20px 0 0 0;
+}
+#content-container nav#related .related-nav-section {
+  flex: 0 0 150px;
+}
+@media (min-width: 992px) {
+  #content-container {
+    /* Bigger screens get sidebars */
+    flex-direction: row;
+  }
+  #content-container #content {
+    order: 1;
+    /* Show the original title for higher resolutions. */
+  }
+  #content-container #content .toc {
+    display: none;
+  }
+  #content-container #shared-sidebar {
+    flex-direction: column;
+    order: 2;
+    margin: 0 0 0 20px;
+  }
+  #content-container #shared-sidebar .toc {
+    display: block;
+  }
+  #content-container nav#related {
+    flex: 0 0 150px;
+    flex-direction: column;
+    margin: 0 0 0 20px;
+  }
+  #content-container nav#related .related-nav-section {
+    flex: 0 0 auto;
+  }
+}
+#wpSave {
+  color: #ffffff;
+  background-color: #000000;
+  border-color: #000000;
+}
+#wpSave:hover,
+#wpSave:focus,
+#wpSave:active,
+#wpSave.active,
+.open .dropdown-toggle#wpSave {
+  color: #ffffff;
+  background-color: #000000;
+  border-color: #000000;
+}
+#wpSave:active,
+#wpSave.active,
+.open .dropdown-toggle#wpSave {
+  background-image: none;
+}
+#wpSave .badge {
+  color: #000000;
+  background-color: #fff;
+}
+.multipleTemplateAdder {
+  color: #ffffff;
+  background-color: #000000;
+  border-color: #000000;
+}
+.multipleTemplateAdder:hover,
+.multipleTemplateAdder:focus,
+.multipleTemplateAdder:active,
+.multipleTemplateAdder.active,
+.open .dropdown-toggle.multipleTemplateAdder {
+  color: #ffffff;
+  background-color: #000000;
+  border-color: #000000;
+}
+.multipleTemplateAdder:active,
+.multipleTemplateAdder.active,
+.open .dropdown-toggle.multipleTemplateAdder {
+  background-image: none;
+}
+.multipleTemplateAdder .badge {
+  color: #000000;
+  background-color: #fff;
+}

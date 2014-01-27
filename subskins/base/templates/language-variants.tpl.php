@@ -1,4 +1,4 @@
-<?php if(count($variants)):?>
+<?php if( !empty($variants) ):?>
 <div class="language-variants">
 <h4><?php $this->msg('otherlanguages') ?></h4>
 <ul>

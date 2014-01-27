@@ -5,24 +5,46 @@
  */
 class BootstrapBaseTemplate extends SkinnyTemplate {
 
-	protected $settings = array(
-		'layout'=>'fluid',
-		'show-sidebar-logo'=>true,
+	protected $_base_defaults = array(
 
-		'contentClass'=>'',
+		'show title'=>true,
 
-		'enable navbar'=>true,
-		'use navbar search'=>true,
+		'content class'=>'',
 
-		'enable related navigation'=>true,
-		'enable secondary search'=>false,
+		'shared sidebar'=>array(
+			'enabled' => true,
+			'position' => 'right'
+		),
 
-		'enable fancy toc'=>true,
+		'fancy toc'=>array(
+			'enabled'=>true,
+			'position'=>'shared sidebar'
+		),
 
-		'show title'=>true
+		'navbar'=>array(
+			'enabled'=>true,
+			'position'=>'top',
+			'fixed'=>true
+		),
+
+		'search'=>array(
+			'enabled'=>true,
+			'position'=>'navbar'
+		),
+
+		'mediawiki sidebar'=>array(
+			'enabled'=>true,
+			'position'=>'shared sidebar'
+		),
+
+		'toolbox'=>array(
+			'position'=>'page menu'
+		)
+
 	);
 
 	public $options = array();
+	protected $defaults = array();
 
 	//map content_navigation array keys to glyphicon names
 	public $key_to_icon = array(
@@ -41,9 +63,11 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected $_template_paths = array();
 
-	public function __construct(){
+	public function __construct( $options=array() ){
 		
-		parent::__construct(false);
+		$this->setDefaults( $this->_base_defaults );
+		
+		parent::__construct( $options );
 
 		$this->addTemplatePath( dirname(__FILE__).'/templates' );
 
@@ -70,36 +94,73 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 	}
 
 	protected function initialize(){
-		//site notice
-		$this->addHook('notice', 'notice');
+
 		//head element (including opening body tag)
 		$this->addHTML('head', $this->data[ 'headelement' ]);
-		if($this->options['enable navbar']){
+
+		if($this->options['navbar']['enabled']){
 			//add a top navigation bar
 			$this->addTemplate('prepend:body', 'topnav');
 		}
 
+		if($this->options['search']['enabled']){
+			if($this->options['search']['position']==='navbar'){
+				//add a top navigation bar
+				$this->addTemplate('primary nav search', 'navbar-search');
+			}
+		}
 		$this->addHook('primary nav menus', 'languageMenu');
-		$this->addHook('primary nav menus', 'contentActionsMenu');
+		$this->addHook('primary nav menus', 'pageMenu');
 		$this->addHook('primary nav menus', 'userMenu');
 
 		$this->addHook('inline search', 'inlineSearchElements');
 
+		//site notice
+		$this->addHook('notice', 'notice');
+
 		//allow for a full-width hero unit above the content
 		$this->addHook('before:lower-container', 'hero');
 
-		//add the usual mediawiki sidebar as a righthand sidebar
-		if($this->options['enable related navigation']){
-			$this->addHTML('content-container.class', 'has-related');
-			$this->addHook('append:content-container', 'relatedNav');
+
+		//add a shared sidebar
+		if($this->options['shared sidebar']['enabled']){
+			$this->addTemplate('append:content-container', 'shared-sidebar' );
 		}
 
-		if($this->options['enable fancy toc']){
-			$this->addHTML('content-container.class', 'has-toc');
+
+		//add the usual mediawiki sidebar contewnt
+		if($this->options['mediawiki sidebar']['enabled']){
+
+			if($this->options['mediawiki sidebar']['position']==='shared sidebar'){
+				//append to the shared sidebar
+				$this->addHook('append:shared-sidebar', 'mediawikiSidebar');
+			}else{
+				//append the template to #content-container
+				$this->addHook('append:content-container', 'mediawikiSidebar');
+			}
+
+			//add language variants and toolbox to the sidebar
+			//$this->addZone('append:', 'language variants');
+			//$this->addZone('append:related navigation', 'toolbox');
+		}
+
+		
+
+		if($this->options['fancy toc']['enabled']){
+			//add .has-toc class to #content-container if there is a toc on the page
+			if(Skinny::hasContent('toc')){
+				$this->addHTML('content-container.class', 'has-toc');
+			}
+			if($this->options['mediawiki sidebar']['position']==='shared sidebar'){
+				$this->addZone('append:shared-sidebar', 'toc' );
+			}else{
+				$this->addTemplate('append:content-container', 'fancy-toc');
+			}
 		}
 
 		//the article title 
 		if($this->options['show title']){
+			$this->addHTML('content-container.class', 'has-title');
 			$this->addTemplate('title', 'title', array(
 				'title'=>$this->data['title']
 			));
@@ -108,7 +169,9 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		$this->addTemplate('brand', 'topnav-brand');
 		$this->addHTML('logo', $this->data['logopath']);
 
-		$this->addTemplate('language variants', 'language-variants', array('variants'=>$this->data['language_urls']));
+		$this->addTemplate('language variants', 'language-variants', array(
+			'variants'=>$this->data['language_urls']
+		));
 
 		//article content
 		$this->addHook('content', 'content');
@@ -154,17 +217,18 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		}
 	}
 
-	protected function relatedNav(){
+	protected function mediawikiSidebar(){
 		$sections = $this->data['sidebar'];
-		if(!$this->options['enable secondary search']){
-			unset($sections['SEARCH']);
-		}
+
+		$class = '';
 		
-		return $this->renderTemplate('related-nav', array(
-			'sections'=>$sections
+		return $this->renderTemplate('mediawiki-sidebar.tpl.php', array(
+			'sections'=>$sections,
+			'class'=>$class
 			)
 		);
 	}
+
 
 	protected function footerLinks(){
 	  $links = $this->getFooterLinks();
@@ -209,12 +273,13 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		return '';
 	}
 
-	protected function contentActionsMenu(){
-		return $this->renderTemplate('contentactions-menu', array(
+	protected function pageMenu(){
+		return $this->renderTemplate('page-menu', array(
 			'namespaces'=>$this->data['content_navigation']['namespaces'],
 			'views'=>$this->data['content_navigation']['views'],
 			'actions'=>$this->data['content_navigation']['actions'],
-			'variants'=>$this->data['content_navigation']['variants']
+			'variants'=>$this->data['content_navigation']['variants'],
+			'tools'=>$this->getToolbox()
 		));
 	}
 
@@ -245,27 +310,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 	}
 
 
-
-
-	function toolbox() {
-?>
-	<div class="portlet" id="p-tb" role="navigation">
-		<ul class="nav nav-list">
-		<li class="nav-header"><?php $this->msg('toolbox') ?></li>
-
-<?php
-		foreach ( $this->getToolbox() as $key => $tbitem ) { ?>
-				<?php echo $this->makeListItem($key, $tbitem); ?>
-
-<?php
-		}
-		wfRunHooks( 'MonoBookTemplateToolboxEnd', array( &$this ) );
-		wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
-?>
-		</ul>
-	</div>
-<?php
-	}
 
 	/*************************************************************************************************/
 	/**
