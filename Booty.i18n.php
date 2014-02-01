@@ -1,6 +1,6 @@
 <?php
 /**
- * Internationalisation for Twittpedia
+ * Internationalisation for Booty skin
  *
  * @file
  * @ingroup Extensions

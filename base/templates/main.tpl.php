@@ -2,20 +2,31 @@
 $this->insert('head'); 
 $this->insert('after:head');
 $this->insert('prepend:body');
+?>
+	<div id="page">
+
+<?php
 $this->insert('before:lower-container');
 ?>
 		<div id="lower-container" class="">
+			<div class="bootstrap-ve">
+				<div class="firstHeading" id="firstHeading" style="display:none;"></div>
+			</div>
 			<?php $this->insert('prepend:lower-container'); ?>
+
 			<?php $this->insert('before:content-container'); ?>
 			<div id="content-container" class="container<?php $this->insert('content-container.class') ?>">
 				<?php $this->insert('prepend:content-container'); ?>
-				<article id="content" class="mw-body-primary <?php $this->insert('content.class') ?>" role="main">
+				<!-- The VisualEditor menu is injected directly before the #firstHeading element. Since this skin
+				doesn't use that for the title, this hidden div is used to ensure the VisualEditor menu is injected in here  -->
+				<?php $this->before('content'); ?>
+				<article id="content" class="mw-body <?php $this->insert('content.class') ?>" role="main">
 					<a id="top"></a>
-					<?php $this->insert('notice'); ?>
-					<?php $this->insert('title'); ?>
-
+					<?php $this->attach('notice'); ?>
+					<?php $this->attach('title'); ?>
+					<?php $this->prepend('content'); ?>
 					
-					<div id="bodyContent" class="mw-body">
+					<div id="bodyContent">
 
 						<?php 
 					/* @todo: Cleanup the following bits; they're basically
@@ -34,6 +45,7 @@ $this->insert('before:lower-container');
 
 						<!-- start content -->
 						<?php $this->insert('content'); ?>
+						<?php $this->append('content'); ?>
 
 
 						<?php if($this->data['catlinks']) { $this->html('catlinks'); } ?>
@@ -42,6 +54,8 @@ $this->insert('before:lower-container');
 						<div class="visualClear"></div>
 					</div>
 				</article>
+				<?php $this->after('content'); ?>
+
 				<?php $this->insert('append:content-container'); ?>
 			</div><!--/content-container-->
 			<?php $this->insert('after:content-container'); ?>
@@ -52,6 +66,9 @@ $this->insert('before:lower-container');
 $this->insert('before:footer');
 $this->insert('footer');
 $this->insert('after:footer');
+?>
+</div><!--/#page-->
+<?php
 $this->insert('append:body');
 
 echo Html::closeElement( 'body' );

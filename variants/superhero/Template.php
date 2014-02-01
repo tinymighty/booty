@@ -3,24 +3,21 @@
  * @todo document
  * @ingroup Skins
  */
-$wgResourceModules['skins.basabali'] = array(
-        'styles' => array(
-                'Basabali/main.css' => array( 'media' => 'screen' ),
-        ),
-        'remoteBasePath' => &$GLOBALS['wgStylePath'],
-        'localBasePath' => &$GLOBALS['wgStyleDirectory']
-);
 
-class BootstrapHeroTemplate extends BootstrapBaseTemplate {
+class BootySuperheroTemplate extends BootyBaseTemplate {
 
-	public $_hero_settings = array(
-		'show title'=>false
+	protected $_hero_defaults = array(
+		'show title'=> false
 	);
+	protected $defaults = array();
+	public $options = array();
 
-	public function __construct(){
+	public function __construct( $options=array() ){
 		//merge in the default settings
-		$this->settings = array_merge($this->settings, $this->_hero_settings);
-		parent::__construct();
+		$this->setDefaults( $this->_hero_defaults );
+
+		parent::__construct( $options );
+
 		$this->addTemplatePath( dirname(__FILE__).'/templates' );
 	}
 	protected function initialize(){

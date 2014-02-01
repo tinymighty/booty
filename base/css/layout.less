@@ -1,0 +1,387 @@
+@import (reference) "../../bootstrap-3.0.3/less/variables.less";
+@import (reference) "../../bootstrap-3.0.3/less/mixins.less";
+@import (reference) "../../bootstrap-3.0.3/less/theme.less";
+@import (reference) "../../bootstrap-3.0.3/less/grid.less";
+@import (reference) "../../bootstrap-3.0.3/less/utilities.less";
+@import (reference) "../../bootstrap-3.0.3/less/forms.less";
+@import (reference) "../../bootstrap-3.0.3/less/navbar.less";
+@import (reference) "../../bootstrap-3.0.3/less/glyphicons.less";
+@import "skins/common/commonContent.css";
+@base-url: "skins/bootstrap/bootstrap-3.0.3";
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot');
+  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('@{base-url}/fonts/glyphicons-halflings-regular.woff') format('woff'), url('@{base-url}/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('@{base-url}/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+@background-color:#fff;
+
+@navbar-bg-color: #ccc;
+@navbar-text-color: #000;
+
+@inverse-text-color: #fff;
+@accent-color: #000;
+
+@new-link-color: red;
+
+html{
+
+}
+
+/* Override some MediaWiki default styles */
+li.new a,
+a.new{
+	color:@new-link-color;
+}
+
+/* Override default styles for VisualEditor. body tag selector gives higher specificity than the
+VisualEditor selectors, which will be appended to the page *after* this file */
+body{
+
+	/* By default make toolbar always static, we'll override it for larger displays */
+	.ve-ui-surfaceToolbar-floating .ve-ui-toolbar-bar,
+	.ve-ui-toolbar-bar{
+		position:static;
+		overflow:visible !important;
+	}
+	.ve-ui-toolbar-bar{
+		background-image:none;
+	}
+	.ve-ui-barToolGroup .ve-ui-tool {
+		height: 1.8em;
+		padding: 0.1em;
+	}
+	/* Ensure the modal is stacked ontop of everything else! */
+
+	.ve-ui-dialog{
+		z-index:99999999;
+	}
+
+	.ve-ui-inspector-content .ve-ui-window-body form{
+		/* Hack for a strange bug in VisualEditor forms which causes inputs to fly off out of view on the edit link popup */
+		whitespace:inherit !important;
+	}
+}
+
+/* Give the various iframes VisualEditor embeds a white background */
+.ve-ui-frame-body{
+	background:white;
+}
+
+
+
+body{
+	background: @background-color;
+
+	@media (min-width: @screen-sm-min) {
+		padding-top:60px;
+		
+		/* Extra padding when VisualEditor toolbar is displayed fixed */
+		&.veaction-edit{
+			padding-top:110px;
+		}
+
+		/* VisualEditor should be a fixed position toolbar on higher resolutions */
+		.bootstrap-ve .ve-ui-surfaceToolbar-floating .ve-ui-toolbar-bar,
+		.bootstrap-ve .ve-ui-toolbar-bar{
+			position:fixed;
+			z-index:1;
+			overflow:visible;
+			top:50px;
+			left:0;
+			right:0;
+		}
+	}
+}
+
+.breadcrumbs{
+	ul{
+		padding:0;
+		margin:0;
+		li{
+			display:inline;
+		}
+		li::after{
+			content: " > ";
+		}
+		li:last-child::after{
+			content: '';
+		}
+	}
+
+	&::after{
+		content: "";
+		clear:left;
+	}
+}
+
+
+/* Use flexbox layout to glue footer to bottom of page
+We'll have to provide an alternate method for <IE11 */
+body{
+
+	#page{
+		display: flex;
+		flex-direction: column;
+		align-content: stretch;
+
+		min-height: 100vh;
+
+
+		#lower-container{
+			flex: 1 1;
+		}	
+		#main-footer{
+			flex: 0 0;
+		}
+	}
+}
+
+#main-footer{
+	position:relative;
+
+	padding:20px 0;
+
+	margin:20px 0 0 0;
+
+	background-color:darken(@background-color, 20%);
+
+
+	#f-links{
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		#f-poweredbyico{
+			float:right;
+			clear:right;
+		}
+	}
+
+}
+
+#wpTextbox1{
+	width:100%;
+}
+
+/* Reset the TOC */
+#toc, .toc{
+	width:auto;
+	display:block;
+	border:none;
+	#toctitle{
+		text-align: left;
+	}
+	.tocnumber{
+		display:none;
+	}
+}
+.site-notice{
+	.alert-info;
+}
+
+.navbar{
+	.first{
+		order:0;
+	}
+	.second{
+		order:20;
+	}
+	.third{
+		order:30;
+	}
+	.fourth{
+		order:40;
+	}
+	.last{
+		order:999;
+	}
+}
+.nav li{
+	position:relative;
+}
+#ca-edit::before{
+	.glyphicon;
+	position:absolute;
+	top:0;
+	left:0;
+}
+#ca-edit{
+	.glyphicon-edit;
+}
+
+
+#top-nav{
+	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
+	color: @navbar-text-color;
+	position:static;
+
+
+	.container{
+		position:relative;
+	}
+
+
+	@media (max-width: @screen-sm-min){
+		.navbar-menu-toggle{
+			position:absolute;
+			left:10px;
+			top:0;
+		}
+
+		.navbar-brand{
+			display:block;
+			float:none;
+			text-align:center;
+			margin:0 auto;
+		}
+
+		.navbar-search{
+			display:block;
+			margin-bottom:5px;
+		}
+	}
+	.navbar-menu{
+	
+		.title{
+			display:inline;
+		}
+	
+	}
+
+
+
+	@media (min-width: @screen-sm-min) {
+
+		position:fixed;
+
+		.container{
+			display: flex;
+			justify-content: space-between; 
+			align-items: center;
+		}
+
+		.navbar-search{
+			flex:1;
+			form{
+
+			}
+		}
+
+		.navbar-menu{
+			display:block;
+			/* Hide titles when displaying inline */
+			&.icons-only .nav .title{
+				display:none;
+			}
+			/* Undo the collapsing which happens at screen-sm-min by default */
+			.navbar-nav > li{
+				float:left;
+			}
+		}
+		.navbar-toggle{
+			display:none;
+		}
+
+
+
+
+		.navbar-search, .navbar-brand, .navbar-menu{
+			
+		}
+		
+	}
+} /* /#top-nav */
+
+
+
+#content-container{
+	
+	display: flex;
+	flex-direction: column;
+	padding-top:0;
+	
+	#content{
+		flex:1;
+		order:2;
+	
+		/* The standard inline TOC is visible on mobile devices */
+		.toc{
+			display:block;
+		}
+	}
+	
+	#shared-sidebar{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+
+		/* The sidebar TOC is hidden on mobile devices */
+		.toc{
+			display:none;
+		}
+	}
+	nav#related{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start; 
+		order:3;
+
+		margin:20px 0 0 0;
+
+		.related-nav-section{
+			flex: 0 0 150px;
+		}
+	}
+
+	/* When the navbar is static, we don't get it's margin. */
+	@media (min-width: @screen-sm-min) {
+		padding-top:10px;
+	}
+	@media (min-width: @screen-md-min) {
+		
+		/* Bigger screens get sidebars */
+		flex-direction: row;
+		
+		#content{
+			order: 1;
+
+			/* Show the original title for higher resolutions. */
+			.toc{
+				display:none;
+			}
+		}
+
+		#shared-sidebar{
+			flex-direction:column;
+
+			order: 2;
+			margin: 0 0 0 20px;
+			.toc{
+				display:block;
+			}
+		}
+
+		nav#related{
+			flex: 0 0 150px;
+			flex-direction: column;
+
+			margin: 0 0 0 20px;
+
+			.related-nav-section{
+				flex: 0 0 auto;
+			}
+		}
+	}
+}
+
+
+#wpSave{
+	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
+}
+
+.multipleTemplateAdder{
+	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
+}
