@@ -7,8 +7,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected $_base_defaults = array(
 
-		'show title'=>true,
-
 		'content class'=>'',
 
 		'shared sidebar'=>array(
@@ -29,7 +27,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 		'search'=>array(
 			'enabled'=>true,
-			'position'=>'navbar'
+			'position'=>'navbar-center'
 		),
 
 		'mediawiki sidebar'=>array(
@@ -39,34 +37,35 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 		'toolbox'=>array(
 			'position'=>'page menu'
+		),
+
+		'user menu'=>array(
+			'title' => 'username'
 		)
 
 	);
 
-	public $options = array();
-	protected $defaults = array();
-
 	//map content_navigation array keys to glyphicon names
 	public $key_to_icon = array(
-		'form_edit'=> 'edit',
-		'edit'=> 'edit',
-		'history'=> 'time',
-		'delete'=> 'remove',
-		'move'=> 'arrow-right',
-		'protect'=> 'lock',
-		'watch'=> 'eye-open',
-		'viewsource'=> 'align-justify',
-		'purge' => 'refresh',
-		'main' => 'file',
-		'talk' => 'comment'
+		've-edit'    => 'edit',
+		'form_edit'  => 'edit',
+		'edit'       => 'edit',
+		'history'    => 'time',
+		'delete'     => 'remove',
+		'move'       => 'arrow-right',
+		'protect'    => 'lock',
+		'watch'      => 'eye-open',
+		'viewsource' => 'align-justify',
+		'purge'      => 'refresh',
+		'main'       => 'file',
+		'talk'       => 'comment'
 	);
 
 	protected $_template_paths = array();
 
 	public function __construct( $options=array() ){
-		
-		$this->setDefaults( $this->_base_defaults );
-		
+		$this->_defaults[] = $this->_base_defaults;
+
 		parent::__construct( $options );
 
 		$this->addTemplatePath( dirname(__FILE__).'/templates' );
@@ -95,28 +94,85 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected function initialize(){
 
-		//head element (including opening body tag)
-		$this->addHTML('head', $this->data[ 'headelement' ]);
+
+		/* 
+		In order to be highly configurable, this skin regularly renders a template to a zone,
+		and then adds that zone to another zone.
+		eg.
+
+			$this->addTemplate('navbar-brand', 'navbar-brand'); //render the `navbar-brand.tpl.php` template to the `navbar-brand` zone
+			$this->addZone('navbar', 'navbar-brand'); //append the content of the `navbar-brand` zone to the `navbar` zone
+
+		This makes it easier to override standard content. If you swap out a template, you can choose
+		to skip a main zone (eg. navbar) and instead specifically insert the zones you want (eg. navbar-brand, navbar-menu) 
+
+		Incase you're looking at this skin as a Skinny reference, don't feel like you need to follow this pattern.
+		Rendering a template directly to a zone (eg. this->addTemplate('navbar', 'navbar-brand')) is absolutely fine for most cases.
+
+		This pattern of rendering to a specific zone and then appending that zone to another is a level of
+		complexity only used in order to allow advanced customisation of this skin without having to create a sub-skin
+		with custom templates.
+		*/
 
 		if($this->options['navbar']['enabled']){
 			//add a top navigation bar
-			$this->addTemplate('prepend:body', 'topnav');
+			$this->addTemplate('prepend:body', 'navbar');
+
+			//the navbar toggler
+			$this->addTemplate('navbar-toggler', 'navbar-toggler');
+			//prepend it to the navbar zone
+			$this->addZone('prepend:navbar', 'navbar-toggler');
+
+			//the wiki name ("brand" in bootstrap lingo)
+			$this->addTemplate('navbar-brand', 'navbar-brand');
+			//add it to the navbar zone
+			$this->addZone('navbar', 'navbar-brand');
+
+			//process the MediaWiki:navbar message, which works more or less like MediaWiki:sidebar
+			$items = $this->processNavigationFromMessage('navbar');
+			if(count($items)){
+				$this->addTemplate('navbar-menu', 'navbar-menu', array(
+					'items'=>$items
+				));
+				//add it to the navbar zone
+				$this->addZone('navbar', 'navbar-menu');
+			}
+
+			//render the navbar-right-menu.tpl.php template to the nav-bar-right-menu zone
+			$this->addTemplate('navbar-right', 'navbar-right-menu');
+			//append menus to the navbar-right-menu zone
+			$this->addHook('navbar-right-menu', 'languageMenu');
+			$this->addHook('navbar-right-menu', 'pageMenu');
+			$this->addHook('navbar-right-menu', 'toolboxMenu');
+			$this->addHook('navbar-right-menu', 'userMenu');
+			//append the navbar-right-menu zone to the navbar zone
+			$this->addZone('navbar', 'navbar-right');
+
+			$this->addTemplate('navbar-search', 'navbar-search');
+
 		}
 
 		if($this->options['search']['enabled']){
-			if($this->options['search']['position']==='navbar'){
-				//add a top navigation bar
-				$this->addTemplate('primary nav search', 'navbar-search');
+			$this->addTemplate('search', 'navbar-search');
+			if( $this->options['search']['position']==='navbar-center' ){
+				$this->addTemplate('append:navbar', 'navbar-search');
+			}
+			else
+			if( $this->options['search']['position']==='navbar-right' ){
+				//$this->addTemplate('append:navbar', 'navbar-search');
 			}
 		}
-		$this->addHook('primary nav menus', 'languageMenu');
-		$this->addHook('primary nav menus', 'pageMenu');
-		$this->addHook('primary nav menus', 'userMenu');
 
-		$this->addHook('inline search', 'inlineSearchElements');
+		$this->addTemplate('inline-search', 'inline-search', array(
+			'label'=>$this->getMsg('search')->plain(),
+			'search_button_label' => $this->getMsg('searcharticle')->plain(),
+			'fulltext_button_label'	=> $this->getMsg('searchbutton')->plain()
+		));
+		
 
-		//site notice
-		$this->addHook('notice', 'notice');
+		if($this->options['breadcrumbs']['enabled']){
+			$this->addZone('prepend:title', 'breadcrumbs');
+		}
 
 		//allow for a full-width hero unit above the content
 		$this->addHook('before:lower-container', 'hero');
@@ -127,25 +183,26 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 			$this->addTemplate('append:content-container', 'shared-sidebar' );
 		}
 
-
 		//add the usual mediawiki sidebar contewnt
 		if($this->options['mediawiki sidebar']['enabled']){
 
 			if($this->options['mediawiki sidebar']['position']==='shared sidebar'){
 				//append to the shared sidebar
-				$this->addHook('append:shared-sidebar', 'mediawikiSidebar');
-			}else{
+				$this->addZone('append:shared-sidebar', 'classic-sidebar');
+			}
+			else
+			if($this->options['mediawiki sidebar']['position']==='navbar'){
 				//append the template to #content-container
-				$this->addHook('append:content-container', 'mediawikiSidebar');
+				$this->addTemplate('append:navbar', 'sidebar-in-navbar', array(
+					'sections'=>$this->data['sidebar']
+				));
+			}else{
+
 			}
 
-			//add language variants and toolbox to the sidebar
-			//$this->addZone('append:', 'language variants');
-			//$this->addZone('append:related navigation', 'toolbox');
 		}
 
 		
-
 		if($this->options['fancy toc']['enabled']){
 			//add .has-toc class to #content-container if there is a toc on the page
 			if(Skinny::hasContent('toc')){
@@ -158,45 +215,7 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 			}
 		}
 
-		//the article title 
-		if($this->options['show title']){
-			$this->addHTML('content-container.class', 'has-title');
-			$this->addTemplate('title', 'title', array(
-				'title'=>$this->data['title']
-			));
-		}
 
-		$this->addTemplate('brand', 'topnav-brand');
-		$this->addHTML('logo', $this->data['logopath']);
-
-		$this->addTemplate('language variants', 'language-variants', array(
-			'variants'=>$this->data['language_urls']
-		));
-
-		//article content
-		$this->addHook('content', 'content');
-		//page footer
-		$this->addTemplate('footer', 'footer', array(
-			'icons'=>$this->getFooterIcons( "icononly" ), 
-			'links'=>$this->getFooterLinks( "flat" )
-		));
-		//mediawiki needs this to inject script tags after the footer
-		$this->addHook('after:footer', 'afterFooter');
-
-	}
-
-	protected function tagline(){
-		return $this->renderTemplate('tagline', array(
-				'tagline'=>wfMsg('tagline')
-			)
-		);
-	}
-
-	protected function content(){
-		return $this->renderTemplate('content', array(
-				'content_html'=>$this->parseContent($this->data['bodytext'])
-			)
-		);
 	}
 
 	protected function hero(){
@@ -206,53 +225,6 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 			$content = Skinny::getContent('hero');
 			return $this->renderTemplate('hero');
 		}
-	}
-
-	protected function notice(){
-		if( isset($this->data['sitenotice']) ){
-			return $this->renderTemplate('notice', array(
-					'notice'=>$this->data['sitenotice']
-				)
-			);
-		}
-	}
-
-	protected function mediawikiSidebar(){
-		$sections = $this->data['sidebar'];
-
-		$class = '';
-		
-		return $this->renderTemplate('mediawiki-sidebar.tpl.php', array(
-			'sections'=>$sections,
-			'class'=>$class
-			)
-		);
-	}
-
-
-	protected function footerLinks(){
-	  $links = $this->getFooterLinks();
-	}
-
-	protected function afterFooter(){
-		ob_start();
-		$this->printTrail();
-		return ob_get_clean();
-	}
-
-	function inlineSearchElements(){
-		global $wgUseTwoButtonsSearchForm;
-		return $this->renderTemplate('inline-search', array(
-			'label'=>wfMsg('search'),
-			'search_button_label' => wfMsg('searcharticle'),
-			'fulltext_button_label'	=> wfMsg('searchbutton')
-		));
-	}
-
-	function inlineSearchForm(){
-		return $this->renderTemplate('inline-search-form', array(
-
-		));
 	}
 
 
@@ -275,21 +247,54 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 
 	protected function pageMenu(){
 		return $this->renderTemplate('page-menu', array(
+			'title'=>$this->getMsg( 'actions' )->plain(),
 			'namespaces'=>$this->data['content_navigation']['namespaces'],
 			'views'=>$this->data['content_navigation']['views'],
 			'actions'=>$this->data['content_navigation']['actions'],
-			'variants'=>$this->data['content_navigation']['variants'],
-			'tools'=>$this->getToolbox()
+			'variants'=>$this->data['content_navigation']['variants']
 		));
 	}
 
 	protected function userMenu(){
+		$user = $this->getSkin()->getUser();
+		if($this->options['user menu']['title']==='username'){
+			if($user->isLoggedIn()){
+				$title = $user->getName();
+			}else{
+				//ideally this should display 'account' or something, but for now we'll leave it as the default
+				$title = $this->getMsg('personaltools')->plain();
+			}
+			
+		}else{
+			$title = $this->getMsg('personaltools')->plain();
+		}
 		return $this->renderTemplate('user-menu', array(
 			'items' => $this->data['personal_urls'],
-			'label' => wfMsg('personaltools') 
+			'title' => $title 
 		));
 	}
 
+	protected function toolboxMenu(){
+		return $this->renderTemplate('toolbox-menu', array(
+			'items' => $this->getToolbox(),
+			'title' => $this->getMsg('toolbox')->plain()
+		)); 
+	}
+
+	/* Override SkinTemplate::makeListItem in order to inject icons */
+	/*public function makeListItem( $key, $attributes, $options=array() ){
+		if( isset($options['icon-class']) ){
+			$class_name = $options['icon-class'];
+			unset( $options['icon-class'] );
+			$options['text-wrapper'] = array('tag' => 'span');
+			$item = parent::makeListItem($key, $attributes, $options);
+			//echo 'WOAH'.$item.'WOAH';
+			$item = str_replace('<span', '<i class="'.$class_name.'"></i> <span', $item);
+			return $item;
+		}else{
+			return parent::makeListItem($key, $attributes, $options);
+		}
+	}*/
 
 
 	/*************************************************************************************************/
@@ -309,36 +314,5 @@ class BootstrapBaseTemplate extends SkinnyTemplate {
 		}
 	}
 
-
-
-	/*************************************************************************************************/
-	/**
-	 * @param $bar string
-	 * @param $cont array|string
-	 */
-	function customBox( $bar, $cont ) {
-		$portletAttribs = array( 'class' => 'generated-sidebar portlet', 'id' => Sanitizer::escapeId( "p-$bar" ), 'role' => 'navigation' );
-		$tooltip = Linker::titleAttrib( "p-$bar" );
-		if ( $tooltip !== false ) {
-			$portletAttribs['title'] = $tooltip;
-		}
-		echo '	' . Html::openElement( 'div', $portletAttribs );
-?>
-		<ul class="nav nav-list">
-		<li class="nav-header"><?php $msg = wfMessage( $bar ); echo htmlspecialchars( $msg->exists() ? $msg->text() : $bar ); ?></li>
-<?php   if ( is_array( $cont ) ) { ?>
-<?php 			foreach($cont as $key => $val) { ?>
-				<?php echo $this->makeListItem($key, $val); ?>
-
-<?php			} ?>
-<?php   } else {
-			# allow raw HTML block to be defined by extensions
-			print '<li>'.$cont.'</li>';
-		}
-?>
-		</ul>
-	</div>
-<?php
-	}
 } // end of class
 

@@ -1,1 +1,0 @@
-<h1 id="firstHeading" class="firstHeading" ><span dir="auto"><?php echo $title ?></span></h1>

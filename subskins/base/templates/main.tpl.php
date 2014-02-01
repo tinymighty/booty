@@ -19,11 +19,12 @@ $this->insert('before:lower-container');
 				<?php $this->insert('prepend:content-container'); ?>
 				<!-- The VisualEditor menu is injected directly before the #firstHeading element. Since this skin
 				doesn't use that for the title, this hidden div is used to ensure the VisualEditor menu is injected in here  -->
+				<?php $this->before('content'); ?>
 				<article id="content" class="mw-body <?php $this->insert('content.class') ?>" role="main">
 					<a id="top"></a>
-					<?php $this->insert('notice'); ?>
-					<?php $this->insert('title'); ?>
-
+					<?php $this->attach('notice'); ?>
+					<?php $this->attach('title'); ?>
+					<?php $this->prepend('content'); ?>
 					
 					<div id="bodyContent">
 
@@ -44,6 +45,7 @@ $this->insert('before:lower-container');
 
 						<!-- start content -->
 						<?php $this->insert('content'); ?>
+						<?php $this->append('content'); ?>
 
 
 						<?php if($this->data['catlinks']) { $this->html('catlinks'); } ?>
@@ -52,6 +54,8 @@ $this->insert('before:lower-container');
 						<div class="visualClear"></div>
 					</div>
 				</article>
+				<?php $this->after('content'); ?>
+
 				<?php $this->insert('append:content-container'); ?>
 			</div><!--/content-container-->
 			<?php $this->insert('after:content-container'); ?>
