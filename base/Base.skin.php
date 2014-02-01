@@ -19,13 +19,16 @@ class SkinBooty extends SkinTemplate {
 
 		parent::initPage( $out );
 
+		//add the css modules separately to prevent a FOUC
+		$out->addModules( 'bootstrap.css' );
+		$out->addModules( 'skin.booty.css');
+		$out->addModules( 'font-awesome' );
+
 		$out->addModules( 'bootstrap.js' );
-		$out->addModules( 'skin.booty.js');
+		$out->addModules( 'skin.booty.js' );
+		//$out->addModuleStyles( 'bootstrap.css' );
+		//$out->addModuleStyles( 'skin.booty.css' );
 
-		$out->addModuleStyles( 'bootstrap.css' );
-		$out->addModuleStyles( 'skin.booty.css' );
-
-		$out->addModuleStyles( 'font-awesome' );
 
 		//load custom modules
 		if(!empty(Booty::$options['modules'])){

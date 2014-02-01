@@ -106,39 +106,31 @@ class Booty{
 	      'styles' => array(
 	      	'bootstrap-3.0.3/css/bootstrap.css'=>array('media'=>'screen')
 	      ),
+	      'position'=>'top'
 			),
 
 			'bootstrap.js' => $resourceTemplate + array(
 					'dependencies'=>array('jquery'),
 			    'scripts'=> array('bootstrap-3.0.3/js/bootstrap.js'),
 			),
-
-			'bootstrap' => $resourceTemplate + array(
-	        'dependencies' => array( 'bootstrap.js', 'bootstrap.css' )
-	    ),
-
+			
 	    'font-awesome' => $resourceTemplate + array(
 	    	'styles' => array(
 	      	'font-awesome-4.0.3/css/font-awesome.css'=>array('media'=>'screen')
 	      )
 	    ),
 
-      'skin.bootstrap.css' => $resourceTemplate + array(
-          'styles'=> array('base/css/layout/base.css')
+      'skin.booty.css' => $resourceTemplate + array(
+          'styles'=> array('base/css/layout.css'),
+          'position' => 'top'
       ),
-      'skin.bootstrap.js' => $resourceTemplate + array(
+      'skin.booty.js' => $resourceTemplate + array(
           'scripts'=> array('base/js/init.js'),
           'position'=> 'bottom',
           'dependencies'=>array(
           	'bootstrap.js'
           )
-      ),
-
-			//resources for the Hero theme
-			'skin.bootstrap.superhero' => $resourceTemplate + array(
-				'styles'=> array('variants/superhero/css/layout.css'),
-				'scripts'=> array('variants/superhero/js/init.js')
-			),
+      )
 
 		);
 
