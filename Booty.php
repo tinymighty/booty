@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrap - A MediaWiki extension to integrate Twitter Bootstrap 
+ * Booty - A slick MediaWiki theme built with Skinny and Bootstrap 3
  *
  * @Version 1.0.0
  * @Author Andru Vallance <andru@tinymighty.com>
@@ -10,19 +10,17 @@
 
 
 $wgExtensionCredits['parserhook'][] = array(
-	'name' => 'Bootstrap',
+	'name' => 'Booty',
 	'author' => 'Andru Vallance',
-	'description' => 'A Bootstrap 3 skin for MediaWiki. Multiple templates to choose from, so ideal for use 
-	with the Skinny extension. It makes a great base for a custom skin project, providing easy subskinning 
-	with a much saner templating system than the standard MediaWiki one-huge-file method.',
-	'url' => 'https://github.com/andru/mediawiki-bootstrap'
+	'description' => 'Booty is a modern mobile-first responsive MediaWiki theme built on Bootstrap 3. Designed primarily for ease of customisation to create new skins, but with an initial set of clean templates which can be used as-is.  Using [[Extension:Skinny]] allows defining skin variations and options on a per-page basis for awesome skin customisation.',
+	'url' => 'https://github.com/andru/booty'
 );
 $cd = dirname(__FILE__);
 $wgAutoloadClasses['BootyExtension'] =  $cd.'/Bootstrap.extension.php';
 
 //the base skin, not intended for use as a skin! But great to build ontop of
-$wgAutoloadClasses['SkinBooty'] = $cd . '/base/Base.skin.php';
-$wgAutoloadClasses['BootyTemplate'] = $cd . '/base/Base.template.php';
+$wgAutoloadClasses['SkinBooty'] = $cd . '/base/Skin.php';
+$wgAutoloadClasses['BootyTemplate'] = $cd . '/base/Template.php';
 
 //Hero skin, a sidebar-less skin with a jumbotron-sidebar combo - ideal for a big impact main page
 $wgAutoloadClasses['BootySuperhero'] = $cd . '/variants/superhero/Superhero.php';
