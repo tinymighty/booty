@@ -1,8 +1,6 @@
-MediaWiki Bootstrap
+Booty
 ===================
 
-A MediaWiki skin and companion extension to integrate Twitter Bootstrap.
+Booty is a modern mobile-first responsive MediaWiki theme built on Bootstrap 3. Designed primarily for ease of customisation to create new skins, but with an initial set of clean templates which can be used as-is.  Built ontop of [Skinny](http://github.com/andru/skinny), a MediaWiki skinning library, it allows defining skin variations and options on a per-page basis for awesome skin customisation, and splits the skin into discrete template files so creating subskins with slight html variations is a breeze.
 
-This is still in development but more or less useable. Right now consider it a skin to use as a base for further development of a custom MediaWiki skin.
-
-Add ```require('skins/Boostrap/Boostrap.setup.php')``` to your config. It won't work without it.
+Setup instructions coming soon!
