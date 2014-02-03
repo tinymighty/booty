@@ -3,15 +3,8 @@
  * @todo document
  * @ingroup Skins
  */
-$wgResourceModules['skins.basabali'] = array(
-        'styles' => array(
-                'Basabali/main.css' => array( 'media' => 'screen' ),
-        ),
-        'remoteBasePath' => &$GLOBALS['wgStylePath'],
-        'localBasePath' => &$GLOBALS['wgStyleDirectory']
-);
 
-class BootstrapHeroTemplate extends BootstrapBaseTemplate {
+class BootySuperheroTemplate extends BootyBaseTemplate {
 
 	protected $_hero_defaults = array(
 		'show title'=> false

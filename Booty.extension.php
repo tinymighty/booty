@@ -1,5 +1,5 @@
 <?php
-class BootstrapExtension {
+class BootyExtension {
 
 
 	public static function __callStatic($name, $fargs)

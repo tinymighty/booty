@@ -3,7 +3,7 @@
  * @todo document
  * @ingroup Skins
  */
-class BootstrapBaseTemplate extends SkinnyTemplate {
+class BootyTemplate extends SkinnyTemplate {
 
 	protected $_base_defaults = array(
 

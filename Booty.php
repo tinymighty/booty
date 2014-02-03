@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrap - A MediaWiki extension to integrate Twitter Bootstrap 
+ * Booty - A highly customizable MediaWiki theme built with Skinny and Bootstrap 3
  *
  * @Version 1.0.0
  * @Author Andru Vallance <andru@tinymighty.com>
@@ -10,58 +10,67 @@
 
 
 $wgExtensionCredits['parserhook'][] = array(
-	'name' => 'Bootstrap',
+	'name' => 'Booty',
 	'author' => 'Andru Vallance',
-	'description' => 'A Bootstrap 3 skin for MediaWiki. Multiple templates to choose from, so ideal for use 
-	with the Skinny extension. It makes a great base for a custom skin project, providing easy subskinning 
-	with a much saner templating system than the standard MediaWiki one-huge-file method.',
-	'url' => 'https://github.com/andru/mediawiki-bootstrap'
+	'description' => 'Booty is a modern mobile-first responsive MediaWiki theme built on Bootstrap 3. Designed primarily for ease of customisation to create new skins, but with an initial set of clean templates which can be used as-is.  Using [[Extension:Skinny]] allows defining skin variations and options on a per-page basis for awesome skin customisation.',
+	'url' => 'https://github.com/andru/booty'
 );
 $cd = dirname(__FILE__);
-$wgAutoloadClasses['BootstrapExtension'] =  $cd.'/Bootstrap.extension.php';
+$wgAutoloadClasses['BootyExtension'] =  $cd.'/Bootstrap.extension.php';
 
 //the base skin, not intended for use as a skin! But great to build ontop of
-$wgAutoloadClasses['SkinBootstrapBase'] = $cd . '/subskins/base/Base.skin.php';
-$wgAutoloadClasses['BootstrapBaseTemplate'] = $cd . '/subskins/base/Base.template.php';
+$wgAutoloadClasses['SkinBooty'] = $cd . '/base/Skin.php';
+$wgAutoloadClasses['BootyTemplate'] = $cd . '/base/Template.php';
 
 //Hero skin, a sidebar-less skin with a jumbotron-sidebar combo - ideal for a big impact main page
-$wgAutoloadClasses['SkinBootstrapHero'] = $cd . '/subskins/superhero/Hero.skin.php';
-$wgAutoloadClasses['BootstrapHeroTemplate'] = $cd . '/subskins/superhero/Hero.template.php';
+$wgAutoloadClasses['BootySuperhero'] = $cd . '/variants/superhero/Superhero.php';
 
-$wgExtensionMessagesFiles[ 'Bootstrap' ] = $cd . '/Bootstrap.i18n.php';
+$wgExtensionMessagesFiles[ 'Booty' ] = $cd . '/Booty.i18n.php';
 
 
 //$wgHooks['RequestContextCreateSkin'][] = "Boostrap::setSkin";
-$wgExtensionFunctions[] = "Bootstrap::tags";
+$wgExtensionFunctions[] = "Booty::tags";
 //$wgHooks['BeforePageDisplay'][] = 'BootstrapSetup::registerResources';
 
 //the base skin, not 
-$wgValidSkinNames['bootstrap'] = 'BootstrapBase';
-$wgValidSkinNames['bootstrap-superhero'] = 'BootstrapHero';
+$wgValidSkinNames['booty'] = 'Booty';
 
-class Bootstrap{
+class Booty{
 	
 	private function __construct(){}
 	protected static $modules = array(
 		'bootstrap'
 	);
 	protected static $defaults = array(
-	   'subskin'  => 'SkinBootstrapBase',
-	   'template' => 'BootstrapBaseTemplate',
+	   'template' => 'BootyTemplate',
 	   'modules'  => array()
 	);
 	public static $options = array();
+
+	protected static $_modulesRegistered = false;
 
 	public static function init($options=array()){
 		//pass options along to skinny
 		Skinny::setOptions($options);
     self::setOptions($options);
 
+    /*if(self::$options['template']!==self::$defaults['template']){
+    	{{$options['template']}}::init();
+    }*/
+
 	  self::registerResources();
 	}
 	
 	static function setOptions($options){
 	  self::$options = array_merge( self::$defaults, self::$options, $options );
+	}
+
+	//allow variant templates to add modules
+	static function addModules($modules){
+		if( self::$_modulesRegistered ){
+			throw new Exception('Too late too add new modules! Modules have already been registered.');
+		}
+		self::$options['modules'] += $modules;
 	}
 
 	static function tags(){
@@ -79,6 +88,8 @@ class Bootstrap{
 	}
 
 	static function registerResources(){
+		self::$_modulesRegistered = true;
+
 	  global $wgResourceModules, $wgStylePath;
 
 		$resourceTemplate = array(
@@ -93,40 +104,31 @@ class Bootstrap{
 	      'styles' => array(
 	      	'bootstrap-3.0.3/css/bootstrap.css'=>array('media'=>'screen')
 	      ),
+	      'position'=>'top'
 			),
 
 			'bootstrap.js' => $resourceTemplate + array(
 					'dependencies'=>array('jquery'),
 			    'scripts'=> array('bootstrap-3.0.3/js/bootstrap.js'),
 			),
-
-			'bootstrap' => $resourceTemplate + array(
-	        'dependencies' => array( 'bootstrap.js', 'bootstrap.css' )
-	    ),
-
+			
 	    'font-awesome' => $resourceTemplate + array(
 	    	'styles' => array(
 	      	'font-awesome-4.0.3/css/font-awesome.css'=>array('media'=>'screen')
 	      )
 	    ),
 
-      'skin.bootstrap.css' => $resourceTemplate + array(
-          'styles'=> array('subskins/base/base.css')
+      'skin.booty.css' => $resourceTemplate + array(
+          'styles'=> array('base/css/layout.css'),
+          'position' => 'top'
       ),
-      'skin.bootstrap.js' => $resourceTemplate + array(
-          'scripts'=> array('subskins/base/init.js'),
+      'skin.booty.js' => $resourceTemplate + array(
+          'scripts'=> array('base/js/init.js'),
           'position'=> 'bottom',
           'dependencies'=>array(
           	'bootstrap.js'
           )
-      ),
-
-
-			//resources for the Hero theme
-			'skin.bootstrap.hero' => $resourceTemplate + array(
-				'styles'=> array('subskins/superhero/hero.css'),
-				'scripts'=> array('subskins/superhero/init.js')
-			),
+      )
 
 		);
 
