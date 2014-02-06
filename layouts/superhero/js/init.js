@@ -1,7 +1,6 @@
 (function($){
-	"use strict";
+	//"use strict";
 	$(function(){
-		
 		/* Make the navbar solid when the window is scrolled below the jumbotron */
 		var 
 			$window = $(window),
@@ -16,7 +15,7 @@
 			$window.resize(function(){
 				herounit_bottom = $herounit.position().top + $herounit.height();
 				navheight = $topnav.height();
-				switch_over = herounit_bottom + navheight;
+				switch_over = herounit_bottom;// - navheight;
 			});
 			$window.resize();//calculate now
 			

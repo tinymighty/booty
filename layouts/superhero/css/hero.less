@@ -1,6 +1,6 @@
-@import (reference) "../../bootstrap-3.0.3/less/variables.less";
-@import (reference) "../../bootstrap-3.0.3/less/mixins.less";
-@import (reference) "../../bootstrap-3.0.3/less/theme.less";
+@import (reference) "../../../bootstrap-3.0.3/less/variables.less";
+@import (reference) "../../../bootstrap-3.0.3/less/mixins.less";
+@import (reference) "../../../bootstrap-3.0.3/less/theme.less";
 @import "./hero.mixins.less";
 
 
@@ -19,9 +19,14 @@
 	}
 }
 
-.navbar{
+#top-nav.navbar{
 	.dropdown-menu(#fff, #000);
 	@media (min-width: @screen-sm-min) {
+			transition: background 0.4s;
+			a{
+				transition: color 0.4s;
+			}
+
 		&.transparent{
 			.transparent-navbar(#fff);
 			.dropdown-menu(#fff, #000);

@@ -68,7 +68,12 @@ class BootyTemplate extends SkinnyTemplate {
 
 		parent::__construct( $options );
 
+		if(!isset($this->options['languages']) && isset(Booty::$skinOptions['languages'])){
+			$this->options['languages'] = Booty::$skinOptions['languages'];
+		}
+
 		$this->addTemplatePath( dirname(__FILE__).'/templates' );
+
 
 		if(isset($this->options['languages'])){
 			$names = Language::getLanguageNames(); 
@@ -86,10 +91,6 @@ class BootyTemplate extends SkinnyTemplate {
 				'code'=>$active->getCode() 
 			);
 		}
-	}
-
-	protected function addTemplatePath($path){
-		array_unshift( $this->_template_paths, $path);
 	}
 
 	protected function initialize(){
@@ -141,7 +142,9 @@ class BootyTemplate extends SkinnyTemplate {
 			//render the navbar-right-menu.tpl.php template to the nav-bar-right-menu zone
 			$this->addTemplate('navbar-right', 'navbar-right-menu');
 			//append menus to the navbar-right-menu zone
-			$this->addHook('navbar-right-menu', 'languageMenu');
+			if(isset($this->options['languages'])){
+				$this->addHook('navbar-right-menu', 'languageMenu');
+			}
 			$this->addHook('navbar-right-menu', 'pageMenu');
 			$this->addHook('navbar-right-menu', 'toolboxMenu');
 			$this->addHook('navbar-right-menu', 'userMenu');

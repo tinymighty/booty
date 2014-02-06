@@ -4,16 +4,17 @@
  * @ingroup Skins
  */
 
-class BootySuperheroTemplate extends BootyBaseTemplate {
+class BootySuperheroTemplate extends BootyTemplate {
 
 	protected $_hero_defaults = array(
-		'show title'=> false
+		'show title'   => false,
+		'show tagline' => false,
+		'mediawiki sidebar' => false
 	);
-	protected $defaults = array();
-	public $options = array();
 
 	public function __construct( $options=array() ){
 		//merge in the default settings
+		//echo '<pre>'; print_r($options); exit;
 		$this->setDefaults( $this->_hero_defaults );
 
 		parent::__construct( $options );
