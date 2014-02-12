@@ -42,6 +42,12 @@ class Booty{
 	public static function addLayout( $name, $config ){
 		SkinBooty::addLayout( $name, $config );
 	}
+	public static function extendLayout( $extend, $name, $config ){
+		SkinBooty::extendLayout( $extend, $name, $config );
+	}
+	public static function setLayoutOptions( $layout_name, $options ){
+		SkinBooty::setLayoutOptions( $layout_name, $options );
+	}
 	public static function addModules( $modules, $auto=false ){
 		SkinBooty::addModules( $modules, $auto );
 	}
