@@ -299,8 +299,8 @@ body #page #main-footer {
 }
 #wpSave {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #ff0000;
+  border-color: #cc0000;
 }
 #wpSave:hover,
 #wpSave:focus,
@@ -308,8 +308,8 @@ body #page #main-footer {
 #wpSave.active,
 .open .dropdown-toggle#wpSave {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #d60000;
+  border-color: #8f0000;
 }
 #wpSave:active,
 #wpSave.active,
@@ -317,13 +317,13 @@ body #page #main-footer {
   background-image: none;
 }
 #wpSave .badge {
-  color: #000000;
+  color: #ff0000;
   background-color: #fff;
 }
 .multipleTemplateAdder {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #ff0000;
+  border-color: #cc0000;
 }
 .multipleTemplateAdder:hover,
 .multipleTemplateAdder:focus,
@@ -331,8 +331,8 @@ body #page #main-footer {
 .multipleTemplateAdder.active,
 .open .dropdown-toggle.multipleTemplateAdder {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #d60000;
+  border-color: #8f0000;
 }
 .multipleTemplateAdder:active,
 .multipleTemplateAdder.active,
@@ -340,6 +340,66 @@ body #page #main-footer {
   background-image: none;
 }
 .multipleTemplateAdder .badge {
-  color: #000000;
+  color: #ff0000;
   background-color: #fff;
+}
+#preferences legend.mainLegend {
+  display: none;
+}
+#preferences .mw-label label {
+  padding-right: 10px;
+}
+#preferences fieldset {
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+}
+#preferences fieldset legend {
+  font-size: 1.4em;
+}
+#preftoc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #cccccc;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-lines: multiple;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -ms-box-lines: multiple;
+  -o-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  -o-justify-content: space-around;
+  justify-content: space-around;
+}
+#preftoc li a {
+  display: inline-block;
+  padding: 10px 20px;
+}
+#preftoc li.selected a {
+  color: #ff0000;
+}
+/* Prevent increased font size from interfering with existing MW layout */
+.mw-ui-container {
+  font-size: 0.8em;
 }

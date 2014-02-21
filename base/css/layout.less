@@ -6,6 +6,8 @@
 @import (reference) "../../bootstrap-3.0.3/less/forms.less";
 @import (reference) "../../bootstrap-3.0.3/less/navbar.less";
 @import (reference) "../../bootstrap-3.0.3/less/glyphicons.less";
+
+@import (reference) "../../lib/flexbox.less";
 /*@base-url: "skins/bootstrap/bootstrap-3.0.3";
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -19,7 +21,7 @@
 @navbar-text-color: #000;
 
 @inverse-text-color: #fff;
-@accent-color: #000;
+@accent-color: red;
 
 @new-link-color: red;
 
@@ -383,4 +385,57 @@ body{
 
 .multipleTemplateAdder{
 	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
+}
+
+#preferences{
+	legend.mainLegend{
+		display:none;
+	}
+
+	.mw-label{
+		label{
+			padding-right:10px;
+		}
+	}
+
+	fieldset{
+		legend{
+			font-size:1.4em;
+		}
+		padding-bottom:25px;
+
+		margin-bottom:25px;
+	}
+}
+#preftoc{
+	list-style:none;
+	padding:0;
+	margin:0;
+
+	background: @navbar-bg-color;
+	border-radius:5px;
+
+	margin-bottom:30px;
+
+	.flexbox();
+	.flex-wrap(wrap);
+	.justify-content(space-around);
+	li{
+		a{
+			display:inline-block;
+			padding:10px 20px;
+		}
+		&.selected{
+			a{
+				color:@accent-color;
+			}
+		}
+	}
+
+}
+
+
+/* Prevent increased font size from interfering with existing MW layout */
+.mw-ui-container{
+	font-size:0.8em;
 }
