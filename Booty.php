@@ -16,7 +16,6 @@ $wgExtensionCredits['parserhook'][] = array(
 	'url' => 'https://github.com/andru/booty'
 );
 $cd = dirname(__FILE__);
-//$wgAutoloadClasses['BootyExtension'] =  $cd.'/Bootstrap.extension.php';
 
 $wgAutoloadClasses['Booty'] = $cd . '/Booty.class.php';
 $wgAutoloadClasses['SkinBooty'] = $cd . '/base/Skin.php';
@@ -26,9 +25,12 @@ $wgExtensionMessagesFiles[ 'Booty' ] = $cd . '/Booty.i18n.php';
 
 $wgValidSkinNames['booty'] = 'Booty';
 
-Booty::init();
+$egBootyBasePath = __DIR__;
+$egBootyBaseURL = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
+$egBootyLayouts = array();
 
 //load skin variants
 require( $cd . '/layouts/default/Default.php' );
 require( $cd . '/layouts/superhero/Superhero.php' );
 
+Booty::init();

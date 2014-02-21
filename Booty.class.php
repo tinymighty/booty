@@ -13,10 +13,15 @@ class Booty{
 
 	/**
 	 * Set up the various hooks needed
+	 * 
+	 * Handler for Hook: BeforeInit
 	 */
 	public static function init(){
+		global $egBootyBaseURL;
 
-		self::$baseURL = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
+		self::$baseURL = $egBootyBaseURL;
+		self::initSkin();
+		self::initLayouts();
 		//global $wgHooks, $wgExtensionFunctions;
 		//pass options along to skinny
 		//Skinny::setOptions($options);
@@ -25,7 +30,24 @@ class Booty{
     //$wgHooks['ResourceLoaderRegisterModules'][] = 'Booty::registerResources';
 
     //$wgExtensionFunctions[] = "Booty::tags";
+		return true;
+	}
 
+	/**
+	 * Init the skin. Give it a chance to define resources etc
+	 */
+	public static function initSkin(  ){
+		SkinBooty::init();
+	}
+
+	/**
+	 * Initialize layouts from $egBootyLayouts config
+	 */
+	public static function initLayouts( ){
+		global $egBootyLayouts;
+		foreach( $egBootyLayouts as $name => $config ){
+			Booty::addLayout( $name, $config );
+		}
 	}
 
 
