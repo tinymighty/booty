@@ -1,5 +1,5 @@
         <?php $this->insert('before:navbar-right-menu') ?>
-        <nav role="navigation" class="navbar-menu navbar-menus last collapse">
+        <nav role="navigation" id="top-nav-menus" class="navbar-menu navbar-menus last collapse">
           <ul class="nav navbar-nav navbar-right">
             <?php $this->attach('navbar-right-menu') ?>
           </ul>

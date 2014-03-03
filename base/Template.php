@@ -41,7 +41,9 @@ class BootyTemplate extends SkinnyTemplate {
 
 		'user menu'=>array(
 			'title' => 'username'
-		)
+		),
+
+		'show tagline' => false,
 
 	);
 

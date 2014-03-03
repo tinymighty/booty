@@ -6,14 +6,9 @@
 @import (reference) "../../bootstrap-3.0.3/less/forms.less";
 @import (reference) "../../bootstrap-3.0.3/less/navbar.less";
 @import (reference) "../../bootstrap-3.0.3/less/glyphicons.less";
+@import (reference) "../../bootstrap-3.0.3/less/buttons.less";
 
 @import (reference) "../../lib/flexbox.less";
-/*@base-url: "skins/bootstrap/bootstrap-3.0.3";
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot');
-  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('@{base-url}/fonts/glyphicons-halflings-regular.woff') format('woff'), url('@{base-url}/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('@{base-url}/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}*/
 
 @background-color:#fff;
 
@@ -203,25 +198,42 @@ body{
 .nav li{
 	position:relative;
 }
-#ca-edit::before{
+/*#ca-edit::before{
 	.glyphicon;
 	position:absolute;
 	top:0;
 	left:0;
-}
-#ca-edit{
+}*/
+/*#ca-edit{
 	.glyphicon-edit;
-}
-
+}*/
 
 #top-nav{
+	position:static;
+	@media (min-width: @screen-sm-min) {
+		position:fixed;
+	}
+
+	.navbar-menu-toggle{
+		.icon{
+			font-size:2em;
+		}
+	}
+}
+
+#top-nav.default{
 	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
 	color: @navbar-text-color;
-	position:static;
 
 
 	.container{
 		position:relative;
+	}
+
+	#top-nav-menus{
+		ul{
+
+		}
 	}
 
 
@@ -243,6 +255,7 @@ body{
 			display:block;
 			margin-bottom:5px;
 		}
+
 	}
 	.navbar-menu{
 	
@@ -256,12 +269,11 @@ body{
 
 	@media (min-width: @screen-sm-min) {
 
-		position:fixed;
-
 		.container{
-			display: flex;
-			justify-content: space-between; 
-			align-items: center;
+			.flexbox();
+			.flex-direction(row);
+			.justify-content(space-between); 
+			.align-items(center);
 		}
 
 		.navbar-search{
@@ -282,12 +294,22 @@ body{
 				float:left;
 			}
 		}
+
 		.navbar-toggle{
 			display:none;
 		}
 
-
-
+		.navbar-links{
+			ul{
+				float:none;
+				.flexbox();
+				.flex-direction(row);
+				.justify-content(space-between);
+				li{
+					float:none;
+				}
+			}
+		}
 
 		.navbar-search, .navbar-brand, .navbar-menu{
 			
@@ -378,12 +400,20 @@ body{
 	}
 }
 
-
+#wpSave,
+#wpPreview,
+#wpDiff,
+input[type=submit],
+input[type=button],
+button{
+	.btn;
+}
 #wpSave{
 	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
 }
 
 .multipleTemplateAdder{
+	.btn;
 	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
 }
 
