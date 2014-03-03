@@ -217,47 +217,69 @@ body{
 	.glyphicon-edit;
 }*/
 
+
+/* Rules which affect more or less all navbar styles */
 #top-nav{
 	position:static;
-	@media (min-width: @screen-sm-min) {
-		position:fixed;
-	}
-
-	.navbar-menu-toggle{
-		.icon{
-			font-size:2em;
-		}
-	}
-}
-
-#top-nav.default{
-	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
-	color: @navbar-text-color;
-
 
 	.container{
 		position:relative;
 	}
 
-	#top-nav-menus{
-		ul{
-
+	.navbar-menu-toggle{
+		position:absolute;
+		left:5px;
+		top:0;
+		.icon{
+			font-size:2em;
+		}
+		.navbar-toggle{
+			float:none;
+			margin:0;
 		}
 	}
 
+	.navbar-brand{
+		display:block;
+		float:none;
+		margin:0 20px;
+		text-align:center;
+	}
 
-	@media (max-width: @screen-sm-min){
-		.navbar-menu-toggle{
-			position:absolute;
-			left:10px;
-			top:0;
+	@media (min-width: @screen-sm-min) {
+		position:fixed;
+		
+		//menus are collapsed by default, but they should be visible on higher resolutions
+		.navbar-menu.collapse{
+			display:block;
 		}
 
 		.navbar-brand{
-			display:block;
+			display:inline-block;
+			float:none;
+			margin:0;
+			text-align:left;
+			padding-left:0;
+		}
+	}
+
+}
+
+
+/* Rules for the default navbar style */
+#top-nav.default{
+	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
+	color: @navbar-text-color;
+
+
+	@media (max-width: @screen-sm-min){
+
+		.navbar-brand{
+			display:inline-block;
 			float:none;
 			text-align:center;
 			margin:0 auto;
+			padding-left:0;
 		}
 
 		.navbar-search{
@@ -379,11 +401,6 @@ body{
 		
 		#content{
 			order: 1;
-
-			/* Show the original title for higher resolutions. */
-			.toc{
-				display:none;
-			}
 		}
 
 		#shared-sidebar{

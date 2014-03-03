@@ -166,17 +166,47 @@ body #page #main-footer {
 /*#ca-edit{
 	.glyphicon-edit;
 }*/
+/* Rules which affect more or less all navbar styles */
 #top-nav {
   position: static;
+}
+#top-nav .container {
+  position: relative;
+}
+#top-nav .navbar-menu-toggle {
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+#top-nav .navbar-menu-toggle .icon {
+  font-size: 2em;
+}
+#top-nav .navbar-menu-toggle .navbar-toggle {
+  float: none;
+  margin: 0;
+}
+#top-nav .navbar-brand {
+  display: block;
+  float: none;
+  margin: 0 20px;
+  text-align: center;
 }
 @media (min-width: 768px) {
   #top-nav {
     position: fixed;
   }
+  #top-nav .navbar-menu.collapse {
+    display: block;
+  }
+  #top-nav .navbar-brand {
+    display: inline-block;
+    float: none;
+    margin: 0;
+    text-align: left;
+    padding-left: 0;
+  }
 }
-#top-nav .navbar-menu-toggle .icon {
-  font-size: 2em;
-}
+/* Rules for the default navbar style */
 #top-nav.default {
   background-image: -webkit-linear-gradient(top, #d1d1d1 0%, #c7c7c7 100%);
   background-image: linear-gradient(to bottom, #d1d1d1 0%, #c7c7c7 100%);
@@ -184,20 +214,13 @@ body #page #main-footer {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd1d1d1', endColorstr='#ffc7c7c7', GradientType=0);
   color: #000000;
 }
-#top-nav.default .container {
-  position: relative;
-}
 @media (max-width: 768px) {
-  #top-nav.default .navbar-menu-toggle {
-    position: absolute;
-    left: 10px;
-    top: 0;
-  }
   #top-nav.default .navbar-brand {
-    display: block;
+    display: inline-block;
     float: none;
     text-align: center;
     margin: 0 auto;
+    padding-left: 0;
   }
   #top-nav.default .navbar-search {
     display: block;
@@ -349,10 +372,6 @@ body #page #main-footer {
   }
   #content-container #content {
     order: 1;
-    /* Show the original title for higher resolutions. */
-  }
-  #content-container #content .toc {
-    display: none;
   }
   #content-container #shared-sidebar {
     flex-direction: column;
