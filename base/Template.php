@@ -45,6 +45,10 @@ class BootyTemplate extends SkinnyTemplate {
 
 		'show tagline' => false,
 
+		'breadcrumbs' => array(
+			'zone' => 'prepend:title'
+		)
+
 	);
 
 	//map content_navigation array keys to glyphicon names
@@ -176,7 +180,7 @@ class BootyTemplate extends SkinnyTemplate {
 		
 
 		if($this->options['breadcrumbs']['enabled']){
-			$this->addZone('prepend:title', 'breadcrumbs');
+			$this->addZone($this->options['breadcrumbs']['zone'], 'breadcrumbs');
 		}
 
 		//allow for a full-width hero unit above the content
