@@ -137,13 +137,11 @@ class BootyTemplate extends SkinnyTemplate {
 
 			//process the MediaWiki:navbar message, which works more or less like MediaWiki:sidebar
 			$items = $this->processNavigationFromMessage('navbar');
-			if(count($items)){
-				$this->addTemplate('navbar-menu', 'navbar-menu', array(
-					'items'=>$items
-				));
-				//add it to the navbar zone
-				$this->addZone('navbar', 'navbar-menu');
-			}
+			$this->addTemplate('navbar-menu', 'navbar-menu', array(
+				'items'=>$items
+			));
+			//add it to the navbar zone
+			$this->addZone('navbar', 'navbar-menu');
 
 			//render the navbar-right-menu.tpl.php template to the nav-bar-right-menu zone
 			$this->addTemplate('navbar-right', 'navbar-right-menu');
