@@ -85,17 +85,52 @@ body {
 }
 /* Use flexbox layout to glue footer to bottom of page
 We'll have to provide an alternate method for <IE11 */
+html {
+  min-height: 100vh;
+}
+body {
+  min-height: 100vh;
+}
 body #page {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
   display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
   flex-direction: column;
+  -ms-flex-line-pack: stretch;
+  -webkit-align-content: stretch;
+  -moz-align-content: stretch;
+  -o-align-content: stretch;
   align-content: stretch;
   min-height: 100vh;
 }
 body #page #lower-container {
-  flex: 1 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex-grow: 1;
+  flex: 1 0 auto;
 }
-body #page #main-footer {
-  flex: 0 0;
+body #page #lower-container:after {
+  content: "";
+  clear: both;
 }
 #main-footer {
   position: relative;
@@ -205,6 +240,9 @@ body #page #main-footer {
     text-align: left;
     padding-left: 0;
   }
+  #top-nav .navbar-toggle {
+    display: none;
+  }
 }
 /* Rules for the default navbar style */
 #top-nav.default {
@@ -285,10 +323,8 @@ body #page #main-footer {
     display: none;
   }
   #top-nav.default .navbar-menu .navbar-nav > li {
-    float: left;
-  }
-  #top-nav.default .navbar-toggle {
-    display: none;
+    display: inline-block;
+    float: none;
   }
   #top-nav.default .navbar-links ul {
     float: none;
@@ -328,8 +364,6 @@ body #page #main-footer {
 }
 /* /#top-nav */
 #content-container {
-  display: flex;
-  flex-direction: column;
   padding-top: 0;
   /* When the navbar is static, we don't get it's margin. */
 }
@@ -342,8 +376,37 @@ body #page #main-footer {
   display: block;
 }
 #content-container #shared-sidebar {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -ms-box-pack: start;
+  -o-box-pack: start;
+  box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  -o-justify-content: flex-start;
   justify-content: flex-start;
   /* The sidebar TOC is hidden on mobile devices */
 }

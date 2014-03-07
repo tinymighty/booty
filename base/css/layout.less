@@ -123,21 +123,28 @@ body{
 
 /* Use flexbox layout to glue footer to bottom of page
 We'll have to provide an alternate method for <IE11 */
+html{
+	min-height:100vh;
+}
 body{
-
+	min-height:100vh;
 	#page{
-		display: flex;
-		flex-direction: column;
-		align-content: stretch;
+		.flexbox();
+		.flex-direction(column);
+		.align-content(stretch);
 
 		min-height: 100vh;
 
-
 		#lower-container{
-			flex: 1 1;
+			.flex-grow(1);
+			flex: 1 0 auto;
 		}	
+		#lower-container:after{
+			content:"";
+			clear:both;
+		}
 		#main-footer{
-			flex: 0 0;
+
 		}
 	}
 }
@@ -261,6 +268,10 @@ body{
 			text-align:left;
 			padding-left:0;
 		}
+
+		.navbar-toggle{
+			display:none;
+		}
 	}
 
 }
@@ -322,12 +333,9 @@ body{
 			}
 			/* Undo the collapsing which happens at screen-sm-min by default */
 			.navbar-nav > li{
-				float:left;
+				display:inline-block;
+				float:none;
 			}
-		}
-
-		.navbar-toggle{
-			display:none;
 		}
 
 		.navbar-links{
@@ -353,8 +361,8 @@ body{
 
 #content-container{
 	
-	display: flex;
-	flex-direction: column;
+	//display: flex;
+	//flex-direction: column;
 	padding-top:0;
 	
 	#content{
@@ -368,9 +376,9 @@ body{
 	}
 	
 	#shared-sidebar{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
+		.flexbox();
+		.flex-direction(row);
+		.justify-content(start);
 
 		/* The sidebar TOC is hidden on mobile devices */
 		.toc{
@@ -378,9 +386,9 @@ body{
 		}
 	}
 	nav#related{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start; 
+		.flexbox()
+		.flex-direction(row);
+		.justify-content(start); 
 		order:3;
 
 		margin:20px 0 0 0;
@@ -397,14 +405,14 @@ body{
 	@media (min-width: @screen-md-min) {
 		
 		/* Bigger screens get sidebars */
-		flex-direction: row;
+		.flex-direction(row);
 		
 		#content{
 			order: 1;
 		}
 
 		#shared-sidebar{
-			flex-direction:column;
+			.flex-direction(column);
 
 			order: 2;
 			margin: 0 0 0 20px;
@@ -414,13 +422,13 @@ body{
 		}
 
 		nav#related{
-			flex: 0 0 150px;
-			flex-direction: column;
+			.flex-basis(150px);
+			.flex-direction(column);
 
 			margin: 0 0 0 20px;
 
 			.related-nav-section{
-				flex: 0 0 auto;
+				
 			}
 		}
 	}
