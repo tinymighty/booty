@@ -32,12 +32,17 @@ li.new a,
 a.new{
 	color:@new-link-color;
 }
+
 a.external:before{
 	.fa;
 	font-size:0.8em;
 	margin-right:1px;
 	content: "\f0ac";
 }
+.plainlinks a.external:before{
+	content:"";
+	margin:0;
+};
 
 /* Override default styles for VisualEditor. body tag selector gives higher specificity than the
 VisualEditor selectors, which will be appended to the page *after* this file */
