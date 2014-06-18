@@ -82,6 +82,10 @@ class SkinBooty extends SkinSkinny {
 		$out->addModuleStyles( 'skin.booty.css');
 		$out->addModuleStyles( 'font-awesome' );
 
+		//since we're using theb mediawiki generated head element, we have to add the viewport meta tag
+		//so the layout scaled properly to mobile devices
+		$out->addMeta( 'viewport', 'width=device-width');//,initial-width=1,maximum-width=1' );
+
 		/* Until ResourceLoader can correctly parse multiple urls in a single font-family
 		webfont files have to be defined in the head to prevent it screwing things up */
 
