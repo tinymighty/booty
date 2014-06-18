@@ -106,6 +106,8 @@ class SkinBooty extends SkinSkinny {
 		$out->addModules( 'bootstrap.js' );
 		$out->addModules( 'skin.booty.js' );
 
+		$out->addHeadItem('meta-viewport', '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">');
+
 		parent::initPage( $out );
 
 	}

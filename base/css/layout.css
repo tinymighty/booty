@@ -329,6 +329,9 @@ body #page #lower-container:after {
   #top-nav.default .navbar-menu.icons-only .nav .title {
     display: none;
   }
+  #top-nav.default .navbar-menu .navbar-nav {
+    margin: 0;
+  }
   #top-nav.default .navbar-menu .navbar-nav > li {
     display: inline-block;
     float: none;

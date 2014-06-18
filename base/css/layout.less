@@ -341,10 +341,14 @@ body{
 				display:none;
 			}
 			/* Undo the collapsing which happens at screen-sm-min by default */
-			.navbar-nav > li{
-				display:inline-block;
-				float:none;
+			.navbar-nav{
+				margin:0;
+				& > li{
+					display:inline-block;
+					float:none;
+				}
 			}
+	
 		}
 
 		.navbar-links{
