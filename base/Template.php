@@ -123,7 +123,7 @@ class BootyTemplate extends SkinnyTemplate {
 
 		if($this->options['navbar']['enabled']){
 			//add a top navigation bar
-			$this->addTemplate('prepend:body', 'navbar');
+			$this->addTemplate('before:lower-container', 'navbar');
 
 			//the navbar toggler
 			$this->addTemplate('navbar-toggler', 'navbar-toggler');
