@@ -1,5 +1,6 @@
 <footer id="main-footer" role="contentinfo"<?php $this->html('userlangattributes') ?>>
 <div class="container">
+<?php $this->prepend('footer'); ?>
 <?php	foreach ( $icons as $blockName => $footerIcons ) { ?>
 	<div id="f-<?php echo htmlspecialchars($blockName); ?>ico">
 <?php foreach ( $footerIcons as $icon ) { ?>
@@ -20,5 +21,6 @@
 
 	</ul>
 <?php endif; ?>
+<?php $this->append('footer'); ?>
 </div>
 </footer>
