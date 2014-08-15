@@ -138,9 +138,12 @@ html{
 body{
 	min-height:100vh;
 	#page{
-		.flexbox();
-		.flex-direction(column);
-		.align-content(stretch);
+		@media screen {
+			.flexbox();
+			.flex-direction(column);
+			.align-content(stretch);
+		}
+		
 
 		min-height: 100vh;
 
