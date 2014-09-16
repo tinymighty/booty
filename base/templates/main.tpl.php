@@ -2,10 +2,12 @@
 $this->insert('head'); 
 $this->insert('after:head');
 $this->insert('prepend:body');
+$this->insert('before:page');
+
 ?>
 	<div id="page">
-
-<?php
+	<?php
+$this->insert('prepend:page');
 $this->insert('before:lower-container');
 ?>
 		<div id="lower-container" class="">

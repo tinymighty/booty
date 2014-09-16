@@ -82,7 +82,7 @@ class BootyTemplate extends SkinnyTemplate {
 
 
 		if(isset($this->options['languages'])){
-			$names = Language::getLanguageNames(); 
+			$names = Language::getLanguageNames();
 			$languages = array();
 			foreach($this->options['languages'] as $code){
 				if(array_key_exists($code, $names)){
@@ -94,7 +94,7 @@ class BootyTemplate extends SkinnyTemplate {
 			$active = $context->getLanguage();
 			$this->data['active_language'] = array(
 				'name'=>$active->fetchLanguageName( $active->getCode() ),
-				'code'=>$active->getCode() 
+				'code'=>$active->getCode()
 			);
 		}
 	}
@@ -102,7 +102,7 @@ class BootyTemplate extends SkinnyTemplate {
 	protected function initialize(){
 
 
-		/* 
+		/*
 		In order to be highly configurable, this skin regularly renders a template to a zone,
 		and then adds that zone to another zone.
 		eg.
@@ -111,7 +111,7 @@ class BootyTemplate extends SkinnyTemplate {
 			$this->addZone('navbar', 'navbar-brand'); //append the content of the `navbar-brand` zone to the `navbar` zone
 
 		This makes it easier to override standard content. If you swap out a template, you can choose
-		to skip a main zone (eg. navbar) and instead specifically insert the zones you want (eg. navbar-brand, navbar-menu) 
+		to skip a main zone (eg. navbar) and instead specifically insert the zones you want (eg. navbar-brand, navbar-menu)
 
 		Incase you're looking at this skin as a Skinny reference, don't feel like you need to follow this pattern.
 		Rendering a template directly to a zone (eg. this->addTemplate('navbar', 'navbar-brand')) is absolutely fine for most cases.
@@ -123,7 +123,7 @@ class BootyTemplate extends SkinnyTemplate {
 
 		if($this->options['navbar']['enabled']){
 			//add a top navigation bar
-			$this->addTemplate('before:lower-container', 'navbar');
+			$this->addTemplate('before:page', 'navbar');
 
 			//the navbar toggler
 			$this->addTemplate('navbar-toggler', 'navbar-toggler');
@@ -175,14 +175,14 @@ class BootyTemplate extends SkinnyTemplate {
 			'search_button_label' => $this->getMsg('searcharticle')->plain(),
 			'fulltext_button_label'	=> $this->getMsg('searchbutton')->plain()
 		));
-		
+
 
 		if($this->options['breadcrumbs']['enabled']){
 			$this->addZone($this->options['breadcrumbs']['zone'], 'breadcrumbs');
 		}
 
 		//allow for a full-width hero unit above the content
-		$this->addHook('before:lower-container', 'hero');
+	  $this->addHook('before:lower-container', 'hero');
 
 
 		//add a shared sidebar
@@ -209,7 +209,7 @@ class BootyTemplate extends SkinnyTemplate {
 
 		}
 
-		
+
 		if($this->options['fancy toc']['enabled']){
 			//add .has-toc class to #content-container if there is a toc on the page
 			if(Skinny::hasContent('toc')){
@@ -227,7 +227,7 @@ class BootyTemplate extends SkinnyTemplate {
 
 	protected function hero(){
 		$content = '';
-		//Skinny can be used to content from the article into the 
+		//Skinny can be used to content from the article into the
 		if( class_exists('Skinny') && Skinny::hasContent('hero') ){
 			$content = Skinny::getContent('hero');
 			return $this->renderTemplate('hero');
@@ -271,13 +271,13 @@ class BootyTemplate extends SkinnyTemplate {
 				//ideally this should display 'account' or something, but for now we'll leave it as the default
 				$title = $this->getMsg('personaltools')->plain();
 			}
-			
+
 		}else{
 			$title = $this->getMsg('personaltools')->plain();
 		}
 		return $this->renderTemplate('user-menu', array(
 			'items' => $this->data['personal_urls'],
-			'title' => $title 
+			'title' => $title
 		));
 	}
 
@@ -285,7 +285,7 @@ class BootyTemplate extends SkinnyTemplate {
 		return $this->renderTemplate('toolbox-menu', array(
 			'items' => $this->getToolbox(),
 			'title' => $this->getMsg('toolbox')->plain()
-		)); 
+		));
 	}
 
 	/* Override SkinTemplate::makeListItem in order to inject icons */
