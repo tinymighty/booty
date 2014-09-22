@@ -208,19 +208,19 @@ body{
 
 .navbar{
 	.first{
-		order:0;
+		.order(0);
 	}
 	.second{
-		order:20;
+		.order(20);
 	}
 	.third{
-		order:30;
+		.order(30);
 	}
 	.fourth{
-		order:40;
+		.order(40);
 	}
 	.last{
-		order:999;
+		.order(999);
 	}
 }
 .nav li{
@@ -331,7 +331,7 @@ body{
 		}
 
 		.navbar-search{
-			flex:1;
+			-webkit-flex:1; //for safari 7
 			form{
 
 			}

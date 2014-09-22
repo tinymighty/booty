@@ -186,18 +186,68 @@ body #page #lower-container:after {
   border-color: #9acfea;
 }
 .navbar .first {
+  -webkit-box-ordinal-group: 1;
+  -moz-box-ordinal-group: 1;
+  -ms-box-ordinal-group: 1;
+  -o-box-ordinal-group: 1;
+  box-ordinal-group: 1;
+  -ms-flex-order: 0;
+  -webkit-order: 0;
+  -moz-order: 0;
+  -ms-order: 0;
+  -o-order: 0;
   order: 0;
 }
 .navbar .second {
+  -webkit-box-ordinal-group: 21;
+  -moz-box-ordinal-group: 21;
+  -ms-box-ordinal-group: 21;
+  -o-box-ordinal-group: 21;
+  box-ordinal-group: 21;
+  -ms-flex-order: 20;
+  -webkit-order: 20;
+  -moz-order: 20;
+  -ms-order: 20;
+  -o-order: 20;
   order: 20;
 }
 .navbar .third {
+  -webkit-box-ordinal-group: 31;
+  -moz-box-ordinal-group: 31;
+  -ms-box-ordinal-group: 31;
+  -o-box-ordinal-group: 31;
+  box-ordinal-group: 31;
+  -ms-flex-order: 30;
+  -webkit-order: 30;
+  -moz-order: 30;
+  -ms-order: 30;
+  -o-order: 30;
   order: 30;
 }
 .navbar .fourth {
+  -webkit-box-ordinal-group: 41;
+  -moz-box-ordinal-group: 41;
+  -ms-box-ordinal-group: 41;
+  -o-box-ordinal-group: 41;
+  box-ordinal-group: 41;
+  -ms-flex-order: 40;
+  -webkit-order: 40;
+  -moz-order: 40;
+  -ms-order: 40;
+  -o-order: 40;
   order: 40;
 }
 .navbar .last {
+  -webkit-box-ordinal-group: 1000;
+  -moz-box-ordinal-group: 1000;
+  -ms-box-ordinal-group: 1000;
+  -o-box-ordinal-group: 1000;
+  box-ordinal-group: 1000;
+  -ms-flex-order: 999;
+  -webkit-order: 999;
+  -moz-order: 999;
+  -ms-order: 999;
+  -o-order: 999;
   order: 999;
 }
 .nav li {
@@ -323,7 +373,7 @@ body #page #lower-container:after {
     align-items: center;
   }
   #top-nav.default .navbar-search {
-    flex: 1;
+    -webkit-flex: 1;
   }
   #top-nav.default .navbar-menu {
     display: block;
