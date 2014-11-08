@@ -3,6 +3,6 @@
     "description": "A modern mobile-first responsive MediaWiki theme built on Bootstrap 3",
     "require": {
         "php": ">=5.3.0",
-        "tinymighty/skinny": ""
+        "tinymighty/skinny": "~1.0"
     }
 }
