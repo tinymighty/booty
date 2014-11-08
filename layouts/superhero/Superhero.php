@@ -9,7 +9,7 @@ $wgAutoloadClasses['BootySuperheroTemplate'] = __DIR__ . '/Template.php';
 //$wgValidSkinNames['folgerpedia'] = 'Folgerpedia';
 
 $tpl = array(
-	'remoteBasePath' => Booty::$baseURL.'/layouts/'.basename(__DIR__),
+	'remoteBasePath' => $egBootyBaseURL.'/layouts/'.basename(__DIR__),
   'localBasePath' => __DIR__
 );
 
@@ -28,9 +28,7 @@ $modules['skins.booty.superhero.js'] = $tpl + array(
   )
 );
 
-Booty::addLayout('superhero', array(
+$egBootyLayouts['superhero'] = array(
   'templateClass' =>'BootySuperheroTemplate',
   'modules'       =>$modules,
-));
-
-
+);

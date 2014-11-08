@@ -13,32 +13,79 @@
 	}
 }
 
+#top-nav.superhero{
+	.navbar-brand,
+	.navbar-search{
+		transition: opacity 0.5s;
+	}
+}
+
 #top-nav{
 	.container{
 		width:100%;
 	}
 }
 
-#top-nav.navbar{
-	.dropdown-menu(#fff, #000);
-	@media (min-width: @screen-sm-min) {
-			transition: background 0.4s;
-			a{
-				transition: color 0.4s;
-			}
+/* Make the static navbar overlap the hero unit */
+body.layout-superhero{
+	#top-nav.navbar{
+		min-height:50px;
+		margin:0;
+		overflow:visible;
+	}
+	#page{
+		margin-top:-50px;
+	}
 
-		&.transparent{
-			.transparent-navbar(#fff);
-			.dropdown-menu(#fff, #000);
-			.add-dropdown-arrows(#000);
+	@media (min-width: @screen-sm-min) {
+		#page{
+			margin-top:0;
 		}
-		&.transparent{
-			+ .jumbotron{
-				box-shadow:none;
+		#top-nav.navbar{
+
+		}
+	}
+
+}
+
+#top-nav.navbar{
+	
+	transition: background 0.4s;
+	a{
+		transition: color 0.4s;
+	}
+
+	&.transparent{
+		.transparent-navbar(#fff);
+		.navbar-toggle{
+			color:#fff;
+		}
+
+		@media (min-width: @screen-sm-min) {
+			.add-dropdown-arrows(#000);
+			.dropdown-menu(#fff, #000);
+		}
+		
+		@media (max-width: @screen-sm) {
+			.navbar-brand,
+			.navbar-search{
+				display:none;
 			}
+		}
+
+		.navbar-brand,
+		.navbar-search{
+			visibility:hidden;
+			opacity:0;
+		}
+	}
+	&.transparent{
+		+ .jumbotron{
+			box-shadow:none;
 		}
 	}
 }
+
 
 
 .navbar.superhero{

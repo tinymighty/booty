@@ -6,71 +6,68 @@
     margin-top: -60px;
   }
 }
+#top-nav.superhero .navbar-brand,
+#top-nav.superhero .navbar-search {
+  transition: opacity 0.5s;
+}
 #top-nav .container {
   width: 100%;
 }
-#top-nav.navbar .dropdown-menu {
-  background: #000000;
+/* Make the static navbar overlap the hero unit */
+body.layout-superhero #top-nav.navbar {
+  min-height: 50px;
+  margin: 0;
+  overflow: visible;
 }
-#top-nav.navbar .dropdown-menu > li > a {
-  color: #ffffff;
-  background-color: #000000;
-}
-#top-nav.navbar .dropdown-menu > li > a:hover,
-#top-nav.navbar .dropdown-menu > li > a:active,
-#top-nav.navbar .dropdown-menu > li > a:focus {
-  color: #ffffff;
-  background-color: #888888;
+body.layout-superhero #page {
+  margin-top: -50px;
 }
 @media (min-width: 768px) {
-  #top-nav.navbar {
-    transition: background 0.4s;
+  body.layout-superhero #page {
+    margin-top: 0;
   }
-  #top-nav.navbar a {
-    transition: color 0.4s;
-  }
+}
+#top-nav.navbar {
+  transition: background 0.4s;
+}
+#top-nav.navbar a {
+  transition: color 0.4s;
+}
+#top-nav.navbar.transparent {
+  background: transparent;
+  border-color: transparent;
+  color: #ffffff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#top-nav.navbar.transparent a {
+  color: #ffffff;
+}
+#top-nav.navbar.transparent .nav > li {
+  background: transparent;
+}
+#top-nav.navbar.transparent .nav > li.open,
+#top-nav.navbar.transparent .nav > li.open > a,
+#top-nav.navbar.transparent .nav > li.open > a:active,
+#top-nav.navbar.transparent .nav > li.open > a:focus,
+#top-nav.navbar.transparent .nav > li.open > a:hover {
+  background: transparent;
+}
+#top-nav.navbar.transparent .nav > li > a {
+  color: #ffffff;
+  background: transparent;
+}
+#top-nav.navbar.transparent .nav > li > a:hover,
+#top-nav.navbar.transparent .nav > li > a:active,
+#top-nav.navbar.transparent .nav > li > a:focus {
+  background: transparent;
+}
+#top-nav.navbar.transparent .navbar-toggle {
+  color: #fff;
+}
+@media (min-width: 768px) {
   #top-nav.navbar.transparent {
-    background: transparent;
-    border-color: transparent;
-    color: #ffffff;
-    -webkit-box-shadow: none;
-    box-shadow: none;
     /* Pull the arrow over to the right if the menu is pulled-right*/
-  }
-  #top-nav.navbar.transparent a {
-    color: #ffffff;
-  }
-  #top-nav.navbar.transparent .nav > li {
-    background: transparent;
-  }
-  #top-nav.navbar.transparent .nav > li.open,
-  #top-nav.navbar.transparent .nav > li.open > a,
-  #top-nav.navbar.transparent .nav > li.open > a:active,
-  #top-nav.navbar.transparent .nav > li.open > a:focus,
-  #top-nav.navbar.transparent .nav > li.open > a:hover {
-    background: transparent;
-  }
-  #top-nav.navbar.transparent .nav > li > a {
-    color: #ffffff;
-    background: transparent;
-  }
-  #top-nav.navbar.transparent .nav > li > a:hover,
-  #top-nav.navbar.transparent .nav > li > a:active,
-  #top-nav.navbar.transparent .nav > li > a:focus {
-    background: transparent;
-  }
-  #top-nav.navbar.transparent .dropdown-menu {
-    background: #000000;
-  }
-  #top-nav.navbar.transparent .dropdown-menu > li > a {
-    color: #ffffff;
-    background-color: #000000;
-  }
-  #top-nav.navbar.transparent .dropdown-menu > li > a:hover,
-  #top-nav.navbar.transparent .dropdown-menu > li > a:active,
-  #top-nav.navbar.transparent .dropdown-menu > li > a:focus {
-    color: #ffffff;
-    background-color: #888888;
   }
   #top-nav.navbar.transparent .dropdown-menu {
     border-radius: 5px;
@@ -103,9 +100,33 @@
     left: inherit;
     right: 25px;
   }
-  #top-nav.navbar.transparent + .jumbotron {
-    box-shadow: none;
+  #top-nav.navbar.transparent .dropdown-menu {
+    background: #000000;
   }
+  #top-nav.navbar.transparent .dropdown-menu > li > a {
+    color: #ffffff;
+    background-color: #000000;
+  }
+  #top-nav.navbar.transparent .dropdown-menu > li > a:hover,
+  #top-nav.navbar.transparent .dropdown-menu > li > a:active,
+  #top-nav.navbar.transparent .dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: #888888;
+  }
+}
+@media (max-width: 768px) {
+  #top-nav.navbar.transparent .navbar-brand,
+  #top-nav.navbar.transparent .navbar-search {
+    display: none;
+  }
+}
+#top-nav.navbar.transparent .navbar-brand,
+#top-nav.navbar.transparent .navbar-search {
+  visibility: hidden;
+  opacity: 0;
+}
+#top-nav.navbar.transparent + .jumbotron {
+  box-shadow: none;
 }
 .navbar.superhero .container {
   width: auto;

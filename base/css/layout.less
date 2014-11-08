@@ -6,12 +6,12 @@
 @import (reference) "../../bootstrap-3.0.3/less/forms.less";
 @import (reference) "../../bootstrap-3.0.3/less/navbar.less";
 @import (reference) "../../bootstrap-3.0.3/less/glyphicons.less";
-/*@base-url: "skins/bootstrap/bootstrap-3.0.3";
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot');
-  src: url('@{base-url}/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('@{base-url}/fonts/glyphicons-halflings-regular.woff') format('woff'), url('@{base-url}/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('@{base-url}/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}*/
+@import (reference) "../../bootstrap-3.0.3/less/buttons.less";
+
+@import (reference) "../../font-awesome-4.0.3/less/variables.less";
+@import (reference) "../../font-awesome-4.0.3/less/core.less";
+
+@import (reference) "../../lib/flexbox.less";
 
 @background-color:#fff;
 
@@ -19,7 +19,7 @@
 @navbar-text-color: #000;
 
 @inverse-text-color: #fff;
-@accent-color: #000;
+@accent-color: red;
 
 @new-link-color: red;
 
@@ -31,6 +31,21 @@ html{
 li.new a,
 a.new{
 	color:@new-link-color;
+}
+
+a.external:before{
+	.fa;
+	font-size:0.8em;
+	margin-right:1px;
+	content: "\f0ac";
+}
+.plainlinks a.external:before{
+	content:"";
+	margin:0;
+};
+
+#contentSub{
+	font-size:0.8em;
 }
 
 /* Override default styles for VisualEditor. body tag selector gives higher specificity than the
@@ -117,21 +132,31 @@ body{
 
 /* Use flexbox layout to glue footer to bottom of page
 We'll have to provide an alternate method for <IE11 */
+html{
+	min-height:100vh;
+}
 body{
-
+	min-height:100vh;
 	#page{
-		display: flex;
-		flex-direction: column;
-		align-content: stretch;
+		@media screen {
+			.flexbox();
+			.flex-direction(column);
+			.align-content(stretch);
+		}
+		
 
 		min-height: 100vh;
 
-
 		#lower-container{
-			flex: 1 1;
+			.flex-grow(1);
+			flex: 1 0 auto;
 		}	
+		#lower-container:after{
+			content:"";
+			clear:both;
+		}
 		#main-footer{
-			flex: 0 0;
+
 		}
 	}
 }
@@ -183,64 +208,108 @@ body{
 
 .navbar{
 	.first{
-		order:0;
+		.order(0);
 	}
 	.second{
-		order:20;
+		.order(20);
 	}
 	.third{
-		order:30;
+		.order(30);
 	}
 	.fourth{
-		order:40;
+		.order(40);
 	}
 	.last{
-		order:999;
+		.order(999);
 	}
 }
 .nav li{
 	position:relative;
 }
-#ca-edit::before{
+/*#ca-edit::before{
 	.glyphicon;
 	position:absolute;
 	top:0;
 	left:0;
-}
-#ca-edit{
+}*/
+/*#ca-edit{
 	.glyphicon-edit;
-}
+}*/
 
 
+/* Rules which affect more or less all navbar styles */
 #top-nav{
-	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
-	color: @navbar-text-color;
 	position:static;
-
 
 	.container{
 		position:relative;
 	}
 
+	.navbar-menu-toggle{
+		position:absolute;
+		left:5px;
+		top:0;
+		.icon{
+			font-size:2em;
+		}
+		.navbar-toggle{
+			float:none;
+			margin:0;
+		}
+	}
 
-	@media (max-width: @screen-sm-min){
-		.navbar-menu-toggle{
-			position:absolute;
-			left:10px;
-			top:0;
+	.navbar-brand{
+		display:block;
+		float:none;
+		margin:0 20px;
+		text-align:center;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		position:fixed;
+		
+		//menus are collapsed by default, but they should be visible on higher resolutions
+		.navbar-menu.collapse{
+			display:block;
 		}
 
 		.navbar-brand{
-			display:block;
+			display:inline-block;
+			float:none;
+			margin:0;
+			text-align:left;
+			padding-left:0;
+		}
+
+		.navbar-toggle{
+			display:none;
+		}
+	}
+
+}
+
+
+/* Rules for the default navbar style */
+#top-nav.default{
+	#gradient .vertical(lighten(@navbar-bg-color, 2%); darken(@navbar-bg-color, 2%));
+	color: @navbar-text-color;
+
+
+	@media (max-width: @screen-sm-min){
+
+		.navbar-brand{
+			display:inline-block;
 			float:none;
 			text-align:center;
 			margin:0 auto;
+			padding-left:0;
 		}
 
 		.navbar-search{
 			display:block;
 			margin-bottom:5px;
 		}
+
 	}
 	.navbar-menu{
 	
@@ -254,16 +323,15 @@ body{
 
 	@media (min-width: @screen-sm-min) {
 
-		position:fixed;
-
 		.container{
-			display: flex;
-			justify-content: space-between; 
-			align-items: center;
+			.flexbox();
+			.flex-direction(row);
+			.justify-content(space-between); 
+			.align-items(center);
 		}
 
 		.navbar-search{
-			flex:1;
+			-webkit-flex:1; //for safari 7
 			form{
 
 			}
@@ -276,16 +344,27 @@ body{
 				display:none;
 			}
 			/* Undo the collapsing which happens at screen-sm-min by default */
-			.navbar-nav > li{
-				float:left;
+			.navbar-nav{
+				margin:0;
+				& > li{
+					display:inline-block;
+					float:none;
+				}
+			}
+	
+		}
+
+		.navbar-links{
+			ul{
+				float:none;
+				.flexbox();
+				.flex-direction(row);
+				.justify-content(space-between);
+				li{
+					float:none;
+				}
 			}
 		}
-		.navbar-toggle{
-			display:none;
-		}
-
-
-
 
 		.navbar-search, .navbar-brand, .navbar-menu{
 			
@@ -298,8 +377,8 @@ body{
 
 #content-container{
 	
-	display: flex;
-	flex-direction: column;
+	//display: flex;
+	//flex-direction: column;
 	padding-top:0;
 	
 	#content{
@@ -313,9 +392,9 @@ body{
 	}
 	
 	#shared-sidebar{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
+		.flexbox();
+		.flex-direction(row);
+		.justify-content(start);
 
 		/* The sidebar TOC is hidden on mobile devices */
 		.toc{
@@ -323,9 +402,9 @@ body{
 		}
 	}
 	nav#related{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start; 
+		.flexbox();
+		.flex-direction(row);
+		.justify-content(start); 
 		order:3;
 
 		margin:20px 0 0 0;
@@ -342,19 +421,14 @@ body{
 	@media (min-width: @screen-md-min) {
 		
 		/* Bigger screens get sidebars */
-		flex-direction: row;
+		.flex-direction(row);
 		
 		#content{
 			order: 1;
-
-			/* Show the original title for higher resolutions. */
-			.toc{
-				display:none;
-			}
 		}
 
 		#shared-sidebar{
-			flex-direction:column;
+			.flex-direction(column);
 
 			order: 2;
 			margin: 0 0 0 20px;
@@ -364,23 +438,94 @@ body{
 		}
 
 		nav#related{
-			flex: 0 0 150px;
-			flex-direction: column;
+			.flex-basis(150px);
+			.flex-direction(column);
 
 			margin: 0 0 0 20px;
 
 			.related-nav-section{
-				flex: 0 0 auto;
+				
 			}
 		}
 	}
 }
 
-
+#wpSave,
+#wpPreview,
+#wpDiff,
+input[type=submit],
+input[type=button],
+button{
+	.btn;
+}
 #wpSave{
 	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
 }
 
 .multipleTemplateAdder{
+	.btn;
 	.button-variant(@inverse-text-color, @accent-color, darken(@accent-color, 10%));
+}
+
+#preferences{
+	legend.mainLegend{
+		display:none;
+	}
+
+	.mw-label{
+		label{
+			padding-right:10px;
+		}
+	}
+
+	fieldset{
+		legend{
+			font-size:1.4em;
+		}
+		padding-bottom:25px;
+
+		margin-bottom:25px;
+	}
+}
+#preftoc{
+	list-style:none;
+	padding:0;
+	margin:0;
+
+	background: @navbar-bg-color;
+	border-radius:5px;
+
+	margin-bottom:30px;
+
+	.flexbox();
+	.flex-wrap(wrap);
+	.justify-content(space-around);
+	li{
+		a{
+			display:inline-block;
+			padding:10px 20px;
+		}
+		&.selected{
+			a{
+				color:@accent-color;
+			}
+		}
+	}
+
+}
+
+
+/* Prevent increased font size from interfering with existing MW layout */
+.mw-ui-container{
+	font-size:0.8em;
+}
+
+
+@media print {
+	#top-nav{
+		display:none;
+	}
+	*{
+		font-size:1rem;
+	}
 }

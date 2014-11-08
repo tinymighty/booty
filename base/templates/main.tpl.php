@@ -2,10 +2,12 @@
 $this->insert('head'); 
 $this->insert('after:head');
 $this->insert('prepend:body');
+$this->insert('before:page');
+
 ?>
 	<div id="page">
-
-<?php
+	<?php
+$this->insert('prepend:page');
 $this->insert('before:lower-container');
 ?>
 		<div id="lower-container" class="">
@@ -38,9 +40,9 @@ $this->insert('before:lower-container');
 						<div id="contentSub2"><?php $this->html('undelete') ?></div>
 				<?php } ?><?php if($this->data['newtalk'] ) { ?>
 						<div class="usermessage"><?php $this->html('newtalk')  ?></div>
-				<?php } ?><?php if($this->data['showjumplinks']) { ?>
+				<?php } ?><?php /*if($this->data['showjumplinks']) { ?>
 						<div id="jump-to-nav" class="mw-jump"><?php $this->msg('jumpto') ?> <a href="#column-one"><?php $this->msg('jumptonavigation') ?></a><?php $this->msg( 'comma-separator' ) ?><a href="#searchInput"><?php $this->msg('jumptosearch') ?></a></div>
-				<?php } ?>
+				<?php }*/ ?>
 
 
 						<!-- start content -->
