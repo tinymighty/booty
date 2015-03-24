@@ -22,7 +22,6 @@ class Booty{
 		self::$baseURL = $egBootyBaseURL;
 		self::initSkin();
 		self::initLayouts();
-		//global $wgHooks, $wgExtensionFunctions;
 		//pass options along to skinny
 		//Skinny::setOptions($options);
     //self::setOptions($options);

@@ -4,7 +4,7 @@ class BootyExtension {
 
 	public static function __callStatic($name, $fargs)
 	{
-		global $wgParser;
+		$wgParser = $GLOBALS['wgParser'];
 
 		$input = $fargs[0];
 
