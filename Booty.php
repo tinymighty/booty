@@ -9,7 +9,7 @@
  */
 
 
-$wgExtensionCredits['parserhook'][] = array(
+$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 	'name' => 'Booty',
 	'author' => 'Andru Vallance',
 	'description' => 'Booty is a modern mobile-first responsive MediaWiki theme built on Bootstrap 3. Designed primarily for ease of customisation to create new skins, but with an initial set of clean templates which can be used as-is.  Using [[Extension:Skinny]] allows defining skin variations and options on a per-page basis for awesome skin customisation.',
@@ -17,17 +17,17 @@ $wgExtensionCredits['parserhook'][] = array(
 );
 $cd = dirname(__FILE__);
 
-$wgAutoloadClasses['Booty'] = $cd . '/Booty.class.php';
-$wgAutoloadClasses['SkinBooty'] = $cd . '/base/Skin.php';
-$wgAutoloadClasses['BootyTemplate'] = $cd . '/base/Template.php';
+$GLOBALS['wgAutoloadClasses']['Booty'] = $cd . '/Booty.class.php';
+$GLOBALS['wgAutoloadClasses']['SkinBooty'] = $cd . '/base/Skin.php';
+$GLOBALS['wgAutoloadClasses']['BootyTemplate'] = $cd . '/base/Template.php';
 
-$wgExtensionMessagesFiles[ 'Booty' ] = $cd . '/Booty.i18n.php';
+$GLOBALS['wgExtensionMessagesFiles'][ 'Booty' ] = $cd . '/Booty.i18n.php';
 
-$wgValidSkinNames['booty'] = 'Booty';
+$GLOBALS['wgValidSkinNames']['booty'] = 'Booty';
 
-$egBootyBasePath = __DIR__;
-$egBootyBaseURL = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
-$egBootyLayouts = array();
+$GLOBALS['egBootyBasePath'] = __DIR__;
+$GLOBALS['egBootyBaseURL'] = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
+$GLOBALS['egBootyLayouts'] = array();
 
 //load skin variants
 require( $cd . '/layouts/default/Default.php' );

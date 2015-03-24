@@ -4,12 +4,12 @@ if( !defined( 'MEDIAWIKI' ) ) {
 	die( -1 );
 }
 
-$wgAutoloadClasses['BootySuperheroTemplate'] = __DIR__ . '/Template.php';
+$GLOBALS['wgAutoloadClasses']['BootySuperheroTemplate'] = __DIR__ . '/Template.php';
 
-//$wgValidSkinNames['folgerpedia'] = 'Folgerpedia';
+//ValidSkinNames['folgerpedia'] = 'Folgerpedia';
 
 $tpl = array(
-	'remoteBasePath' => $egBootyBaseURL.'/layouts/'.basename(__DIR__),
+	'remoteBasePath' => $GLOBALS['egBootyBaseURL'].'/layouts/'.basename(__DIR__),
   'localBasePath' => __DIR__
 );
 
@@ -28,7 +28,7 @@ $modules['skins.booty.superhero.js'] = $tpl + array(
   )
 );
 
-$egBootyLayouts['superhero'] = array(
+$GLOBALS['egBootyLayouts']['superhero'] = array(
   'templateClass' =>'BootySuperheroTemplate',
   'modules'       =>$modules,
 );
