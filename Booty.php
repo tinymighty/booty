@@ -25,12 +25,21 @@ $GLOBALS['wgExtensionMessagesFiles'][ 'Booty' ] = $cd . '/Booty.i18n.php';
 
 $GLOBALS['wgValidSkinNames']['booty'] = 'Booty';
 
-$GLOBALS['egBootyBasePath'] = __DIR__;
-$GLOBALS['egBootyBaseURL'] = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
-$GLOBALS['egBootyLayouts'] = array();
+//when installed via Composer, this file is loaded too early to access
+//wgStylePath, so we delay init intil the SetupAfterCache hook
+//by which MediaWiki is properly initialized
+$GLOBALS['wgHooks']['SetupAfterCache'][] = function(){
+	$cd = dirname(__FILE__);
 
-//load skin variants
-require( $cd . '/layouts/default/Default.php' );
-require( $cd . '/layouts/superhero/Superhero.php' );
+	$GLOBALS['egBootyBasePath'] = __DIR__;
+	$GLOBALS['egBootyBaseURL'] = $GLOBALS['wgStylePath'].'/'.basename(__DIR__);
+	$GLOBALS['egBootyLayouts'] = array();
 
-Booty::init();
+
+	//load skin variants
+	require( $cd . '/layouts/default/Default.php' );
+	require( $cd . '/layouts/superhero/Superhero.php' );
+
+	Booty::init();
+
+};
