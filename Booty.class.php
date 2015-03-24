@@ -17,9 +17,8 @@ class Booty{
 	 * Handler for Hook: BeforeInit
 	 */
 	public static function init(){
-		global $egBootyBaseURL;
 
-		self::$baseURL = $egBootyBaseURL;
+		self::$baseURL = $GLOBALS['egBootyBaseURL'];
 		self::initSkin();
 		self::initLayouts();
 		//pass options along to skinny
@@ -43,8 +42,7 @@ class Booty{
 	 * Initialize layouts from $egBootyLayouts config
 	 */
 	public static function initLayouts( ){
-		global $egBootyLayouts;
-		foreach( $egBootyLayouts as $name => $config ){
+		foreach( $GLOBALS['egBootyLayouts'] as $name => $config ){
 			Booty::addLayout( $name, $config );
 		}
 	}
