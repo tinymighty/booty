@@ -1,4 +1,4 @@
-		<form class="" role="search" method="get">
+		<form class="" role="search" method="get" action="<?php $this->text( 'wgScript' ) ?>">
 			<div class="input-group">
         <input type="search" class="form-control" name="search" placeholder="<?php echo $label ?>" id="searchInput">
 
