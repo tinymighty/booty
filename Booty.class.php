@@ -1,7 +1,7 @@
 <?php
 
 class Booty{
-	
+
 	/**
 	 * Booty is a static singleton, it cannot be instantiated.
 	 */
@@ -10,6 +10,8 @@ class Booty{
 	public static $skinOptions = array();
 
 	public static $baseURL = '';
+
+	public static $readyHandlers = array();
 
 	/**
 	 * Set up the various hooks needed
@@ -23,12 +25,18 @@ class Booty{
 		self::initLayouts();
 		//pass options along to skinny
 		//Skinny::setOptions($options);
-    //self::setOptions($options);
+		//self::setOptions($options);
 
-    //$wgHooks['ResourceLoaderRegisterModules'][] = 'Booty::registerResources';
-
-    //$wgExtensionFunctions[] = "Booty::tags";
+		//$wgHooks['ResourceLoaderRegisterModules'][] = 'Booty::registerResources';
+		foreach(self::$readyHandlers as $fn){
+			$fn();
+		}
+		//$wgExtensionFunctions[] = "Booty::tags";
 		return true;
+	}
+
+	public static function onReady( $fn ){
+		array_push(self::$readyHandlers, $fn);
 	}
 
 	/**
@@ -56,7 +64,7 @@ class Booty{
 		if($reset===true){
 			self::$skinOptions = array();
 		}
-	  self::$skinOptions = Skinny::mergeOptionsArrays( self::$skinOptions, $options );
+		self::$skinOptions = Skinny::mergeOptionsArrays( self::$skinOptions, $options );
 	}
 	public static function addLayout( $name, $config ){
 		SkinBooty::addLayout( $name, $config );
