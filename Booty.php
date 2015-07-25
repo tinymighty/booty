@@ -9,7 +9,7 @@
  */
 
 
-$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
+$GLOBALS['wgExtensionCredits']['skin'][] = array(
 	'name' => 'Booty',
 	'author' => 'Andru Vallance',
 	'description' => 'Booty is a modern mobile-first responsive MediaWiki theme built on Bootstrap 3. Designed primarily for ease of customisation to create new skins, but with an initial set of clean templates which can be used as-is.  Using [[Extension:Skinny]] allows defining skin variations and options on a per-page basis for awesome skin customisation.',
