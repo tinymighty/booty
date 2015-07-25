@@ -24,6 +24,8 @@ $GLOBALS['wgAutoloadClasses']['BootyTemplate'] = $cd . '/base/Template.php';
 
 $GLOBALS['wgMessagesDirs']['Booty'] = __DIR__ . '/i18n';
 
+$wgExtensionMessagesFiles['BootyMagic'] = __DIR__ . '/Booty.i18n.magic.php';
+
 $GLOBALS['wgValidSkinNames']['booty'] = 'Booty';
 
 //when installed via Composer, this file is loaded too early to access
