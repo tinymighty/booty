@@ -41,15 +41,15 @@ class SkinBooty extends SkinSkinny {
 			),
 
 			'bootstrap.js' => $template + array(
-				'dependencies'=>array('jquery'),
 			  'scripts'=> array('bootstrap-3.0.3/js/bootstrap.js'),
 		    'group'=>'bootstrap'
 			),
-			
+
 		  'font-awesome' => $template + array(
 		  	'styles' => array(
 		    	'font-awesome-4.0.3/css/font-awesome.css'=>array('media'=>'screen')
 		    ),
+				'position'=>'top',
 		    'group'=>'bootstrap'
 		  ),
 
@@ -67,7 +67,7 @@ class SkinBooty extends SkinSkinny {
 		    ),
 		    'group'=>'booty'
 		  )
-		); 
+		);
 
 		self::addModules($modules);
 	}
@@ -100,7 +100,7 @@ class SkinBooty extends SkinSkinny {
 		  font-weight: normal;
 		  font-style: normal;
 		}");
-		
+
 		//js items will be appended after page load
 		$out->addModules( 'bootstrap.js' );
 		$out->addModules( 'skin.booty.js' );
@@ -113,4 +113,3 @@ class SkinBooty extends SkinSkinny {
 
 
 }
-
